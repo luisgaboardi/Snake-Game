@@ -66,4 +66,4 @@ Quando finalizado, o projeto deverá conter neste README as instruções de exec
 |**Qualidade do Código**| Utilização de boas práticas como o uso de bons nomes, modularização e organização em geral.    |  1,0 |
 |**Repositório**|   Utilização correta do repositório, commits claros e frequentes. |   1,0 |
 |      |    TOTAL   |   10  |
-|**Pontuação Extra**| Possiveis pontos extras:<br/>- Ranking em arquivo com nome do jogador e quantidade de pontos<br/>- Fazer as cobras atravessarem as bordas do jogo aparecendo no outro lado|  0,5 (para cada funcionalidade) |
+|**Pontuação Extra**| Possiveis pontos extras:<br/>- Ranking em arquivo com nome do jogador e quantidade de pontos<br/>- Fazer as cobras atravessarem as bordas do jogo aparecendo no outro lado<br/>- Testes automatizados|  0,5 (para cada funcionalidade) |
