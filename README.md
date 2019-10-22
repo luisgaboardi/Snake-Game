@@ -55,15 +55,16 @@ Quando finalizado, o projeto deverá conter neste README as instruções de exec
 
 |   ITEM    |   COMENTÁRIO  |   VALOR   |
 |------------------------|---------------------------------------------------------------------------------------------------------|---------|
-|**Game Loop**| A aplicação deve ter implementados o Game Loop do Jogo com tela de Game Over ao final. |    1,5 |
+|**Game Loop**| A aplicação deve ter implementados o Game Loop do Jogo com tela de Game Over ao final. |    1,0 |
 |**Tipos de Snake e Frutas**| A aplicação deve ter implementados os 3 tipos de cobra e 4 tipos de fruta. |   1,0 |
 |**Herança**| Utilização de Herança (que faça sentido).  |   1,0 |
 |**Polimorfismo**|  No código deve haver, no mínimo, três casos de polimorfismo sendo utilizados.    |   1,0 |
 |**Encapsulamento**| Utilização adequada de encapsulamento em todas as classes.    |   1,0 |
 |**Modelagem**| Qualidade do código e dos relacionamentos entre classes.  |  0,5 |
-|**Thread**| O jogo deve possuir ao menos uma thread.  |  1,0 |
+|**Thread**| O jogo deve possuir ao menos uma thread.  |  0,5 |
 |**Interface**| O programa deve possuir a interface Swing e possuir interação com o usuário |   1,0 |
 |**Qualidade do Código**| Utilização de boas práticas como o uso de bons nomes, modularização e organização em geral.    |  1,0 |
+|**UML**| O EP deve possuir um diagrama UML em sua documentação |  1,0 |
 |**Repositório**|   Utilização correta do repositório, commits claros e frequentes. |   1,0 |
 |      |    TOTAL   |   10  |
 |**Pontuação Extra**| Possiveis pontos extras:<br/>- Ranking em arquivo com nome do jogador e quantidade de pontos<br/>- Fazer as cobras atravessarem as bordas do jogo aparecendo no outro lado<br/>- Testes automatizados|  0,5 (para cada funcionalidade) |
