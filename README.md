@@ -1,3 +1,30 @@
+# Snake da Carla
+
+Essse projeto bla bla oo, oaoa
+
+tem as seguintes funionalidades:
+
+- Implementado as snakes **comum** e **kitty**
+- Implementado a fruta simples
+
+
+# Como Jogar
+
+1. Entre na pasta bin
+2. Execute o programa (tenha um virtual machine java instalado)
+3. Comandos
+
+# Como compilar
+
+No terminal
+
+```javac Nomeprograma.java```
+
+executar
+
+```NomePrograma```
+
+
 # EP2 - OO 2019.2 (UnB - Gama)
 
 Turmas Renato e Carla
