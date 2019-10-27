@@ -19,7 +19,7 @@ public class Snake {
 		posY = 140;
 		scale = 20;
 		speed = 5;
-		color = new Color(0, 0, 0);
+		color = new Color(255, 255, 255);
 		score = 0;
 	}
 
