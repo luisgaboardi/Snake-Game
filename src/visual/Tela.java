@@ -20,6 +20,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -31,8 +33,9 @@ public class Tela {
     private int altura = 435;
     private int posX = 650;
     private int posY = 150;
-    private static double scale = 15;
-    private Snake snake = new Snake();
+    private static int scale = 15;
+    private static Snake snake = new Snake();
+    private static Fruit fruit = new Fruit();
     
     private JFrame janelaJogo;
     
@@ -59,26 +62,46 @@ public class Tela {
 //            for (int i = 0; i <= 270; i += getScale()) {
 //                g.drawLine(0, i, 375, i);
 //            }
+            
+            
+            // Iniciando cobra 
+            g.setColor(Color.WHITE);
+            for (Point fillCell : getSnake().getBodyPos()) {
+    			int posX = (int)fillCell.getX();
+    			int posY = (int)fillCell.getY();
+                g.fillRect(posX, posY, getScale(), getScale());
+            }
+            
+            // Iniciando Fruta
+            g.setColor(Color.RED);
+            g.fillRect((int)fruit.getPos().getX(), (int)fruit.getPos().getY(), getScale(), getScale());
+                  
         }
 
         public void fillCell(int x, int y) {
             fillCells.add(new Point(x, y));
             repaint();
         }
-
+        
     }
 
-	public static double getScale() {
+	public static int getScale() {
 		return scale;
 	}
-	public void setScale(double scale) {
+	public void setScale(int scale) {
 		Tela.scale = scale;
 	}
-	public Snake getSnake() {
+	public static Snake getSnake() {
 		return snake;
 	}
 	public void setSnake(Snake snake) {
-		this.snake = snake;
+		Tela.snake = snake;
+	}
+	public static Fruit getFruit() {
+		return fruit;
+	}
+	public static void setFruit(Fruit fruit) {
+		Tela.fruit = fruit;
 	}
 	public JFrame getJanelaJogo() {
 		return janelaJogo;

@@ -1,10 +1,13 @@
 package visual;
 
 import java.awt.Color;
+import java.awt.Point;
+import java.util.Random;
 
 public class Fruit {
 	private int scoreValue;
 	private int growValue;
+	private Point pos;
 	private boolean isSimple;
 	private boolean isBomb;
 	private boolean isBig;
@@ -25,6 +28,14 @@ public class Fruit {
 
 	public void setGrowValue(int growValue) {
 		this.growValue = growValue;
+	}
+
+	public Point getPos() {
+		return pos;
+	}
+
+	public void setPos(Point pos) {
+		this.pos = pos;
 	}
 
 	public boolean isSimple() {
@@ -79,6 +90,22 @@ public class Fruit {
 		} else if (type == "Decrease") {
 			// Reduz cobra pra tamanho inicial
 		}
+	}
+	
+	private static int getRandomNumberInRange(int min, int max) {
+
+		if (min >= max) {
+			throw new IllegalArgumentException("max must be greater than min");
+		}
+
+		Random r = new Random();
+		return (r.nextInt((max - min) + 1) + min) * 15;
+	}
+	
+	public Fruit() {
+		int posX = getRandomNumberInRange(0, 24);
+		int posY = getRandomNumberInRange(0, 18);
+		pos = new Point(posX, posY);	
 	}
 
 }

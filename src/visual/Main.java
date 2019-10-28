@@ -1,5 +1,6 @@
 package visual;
 
+
 import java.awt.EventQueue;
 
 public class Main {

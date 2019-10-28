@@ -1,10 +1,12 @@
 package visual;
 
 import java.awt.Color;
+import java.awt.Point;
+import java.util.ArrayList;
 
 public class Snake {
 	private int bodySize;
-	private int bodyPos[][];
+	private ArrayList<Point> bodyPos;
 	private int scale;
 	private int speed;
 	private Color color;
@@ -12,7 +14,11 @@ public class Snake {
 	
 	public Snake() {
 		bodySize = 4;
-		bodyPos = new int[150][140];
+		bodyPos = new ArrayList<Point>(4);
+		bodyPos.add(new Point(135, 150));
+		bodyPos.add(new Point(120, 150));
+		bodyPos.add(new Point(105, 150));
+		bodyPos.add(new Point(90, 150));
 		scale = 15;
 		speed = 5;
 		color = new Color(255, 255, 255);
@@ -27,11 +33,11 @@ public class Snake {
 		this.bodySize = bodySize;
 	}
 
-	public int[][] getBodyPos() {
+	public ArrayList<Point> getBodyPos() {
 		return bodyPos;
 	}
 
-	public void setBodyPos(int[][] bodyPos) {
+	public void setBodyPos(ArrayList<Point> bodyPos) {
 		this.bodyPos = bodyPos;
 	}
 
