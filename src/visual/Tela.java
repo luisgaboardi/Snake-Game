@@ -2,6 +2,9 @@ package visual;
 
 import javax.swing.JFrame;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
+
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -19,17 +22,58 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Tela {
 
 	private int largura = 400;
-    private int altura = 450;
+    private int altura = 435;
     private int posX = 650;
     private int posY = 150;
+    private static double scale = 15;
     private Snake snake = new Snake();
     
     private JFrame janelaJogo;
+    
+    @SuppressWarnings("serial")
+	public static class Grid extends JPanel {
 
+        private List<Point> fillCells;
+
+        public Grid() {
+            fillCells = new ArrayList<>(475);
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, 375, 285);
+
+//            g.setColor(Color.WHITE);
+//            for (int i = 0; i <= 360; i += getScale()) {
+//                g.drawLine(i, 0, i, 285);
+//            }
+//
+//            for (int i = 0; i <= 270; i += getScale()) {
+//                g.drawLine(0, i, 375, i);
+//            }
+        }
+
+        public void fillCell(int x, int y) {
+            fillCells.add(new Point(x, y));
+            repaint();
+        }
+
+    }
+
+	public static double getScale() {
+		return scale;
+	}
+	public void setScale(double scale) {
+		Tela.scale = scale;
+	}
 	public Snake getSnake() {
 		return snake;
 	}
@@ -54,15 +98,13 @@ public class Tela {
 		janelaJogo.setSize(300, 350);
 		
 		JLayeredPane areaTitulo = new JLayeredPane();
-		areaTitulo.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		areaTitulo.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		areaTitulo.setBackground(Color.WHITE);
 		
 		JLayeredPane areaBotoes = new JLayeredPane();
 		areaBotoes.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
-		JPanel telaJogo = new JPanel();
-		telaJogo.setBackground(Color.BLACK);
-		telaJogo.setSize(280, 300);
+		Grid grid = new Grid();
 		
 		GroupLayout contJanela = new GroupLayout(janelaJogo.getContentPane());
 		contJanela.setHorizontalGroup(
@@ -70,7 +112,7 @@ public class Tela {
 				.addComponent(areaTitulo, GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
 				.addGroup(contJanela.createSequentialGroup()
 					.addGap(12)
-					.addComponent(telaJogo, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+					.addComponent(grid, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
 					.addGap(12))
 				.addGroup(contJanela.createSequentialGroup()
 					.addGap(12)
@@ -82,13 +124,13 @@ public class Tela {
 				.addGroup(contJanela.createSequentialGroup()
 					.addComponent(areaTitulo, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
 					.addGap(10)
-					.addComponent(telaJogo, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+					.addComponent(grid, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
 					.addGap(10)
 					.addComponent(areaBotoes, GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
 					.addGap(10))
 		);
 		
-		JButton btnNewButton = new JButton("PLAY");
+		final JButton btnNewButton = new JButton("PLAY");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -113,34 +155,34 @@ public class Tela {
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnNewButton.setBounds(10, 10, 90, 30);
+		btnNewButton.setBounds(15, 11, 110, 35);
 		areaBotoes.add(btnNewButton);
 		
 		JTextArea textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setText("000000");
-		textArea.setBounds(306, 18, 42, 16);
+		textArea.setBounds(305, 20, 48, 15);
 		areaBotoes.add(textArea);
 		
 		JTextArea txtrScore = new JTextArea();
 		txtrScore.setEditable(false);
 		txtrScore.setBackground(Color.LIGHT_GRAY);
 		txtrScore.setText("Score:");
-		txtrScore.setBounds(264, 18, 52, 20);
+		txtrScore.setBounds(265, 20, 52, 20);
 		areaBotoes.add(txtrScore);
 		
 		JSpinner spinner = new JSpinner();
 		spinner.setModel(new SpinnerNumberModel(1, 1, 10, 1));
-		spinner.setBounds(190, 15, 33, 20);
+		spinner.setBounds(190, 18, 33, 20);
 		areaBotoes.add(spinner);
 		
 		JTextArea txtrSpeed = new JTextArea();
 		txtrSpeed.setEditable(false);
 		txtrSpeed.setBackground(Color.LIGHT_GRAY);
 		txtrSpeed.setText("Speed");
-		txtrSpeed.setBounds(145, 18, 42, 20);
+		txtrSpeed.setBounds(145, 20, 42, 20);
 		areaBotoes.add(txtrSpeed);
-		telaJogo.setLayout(null);
+		grid.setLayout(null);
 		
 		JTextArea textoTitulo = new JTextArea();
 		textoTitulo.setEditable(false);
@@ -148,7 +190,7 @@ public class Tela {
 		textoTitulo.setBackground(Color.LIGHT_GRAY);
 		areaTitulo.setLayer(textoTitulo, 0);
 		textoTitulo.setText("Snake");
-		textoTitulo.setBounds(10, 5, 73, 30);
+		textoTitulo.setBounds(10, 8, 73, 30);
 		areaTitulo.add(textoTitulo);
 		janelaJogo.getContentPane().setLayout(contJanela);
 		janelaJogo.setTitle("Snake");

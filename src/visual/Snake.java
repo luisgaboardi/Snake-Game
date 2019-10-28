@@ -4,8 +4,6 @@ import java.awt.Color;
 
 public class Snake {
 	private int bodySize;
-	private int posX;
-	private int posY;
 	private int bodyPos[][];
 	private int scale;
 	private int speed;
@@ -14,10 +12,8 @@ public class Snake {
 	
 	public Snake() {
 		bodySize = 4;
-		bodyPos = new int[bodySize][bodySize];
-		posX = 140;
-		posY = 140;
-		scale = 20;
+		bodyPos = new int[150][140];
+		scale = 15;
 		speed = 5;
 		color = new Color(255, 255, 255);
 		score = 0;
@@ -29,22 +25,6 @@ public class Snake {
 
 	public void setBodySize(int bodySize) {
 		this.bodySize = bodySize;
-	}
-
-	public int getPosX() {
-		return posX;
-	}
-
-	public void setPosX(int posX) {
-		this.posX = posX;
-	}
-
-	public int getPosY() {
-		return posY;
-	}
-
-	public void setPosY(int posY) {
-		this.posY = posY;
 	}
 
 	public int[][] getBodyPos() {
