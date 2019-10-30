@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class Grid extends JPanel {
 
-    private Snake snake;
+    private Snake snake = new Snake();
     private Fruit fruit;
     private int scale;
     
@@ -29,12 +29,12 @@ public class Grid extends JPanel {
 	public int getScale() {
 		return scale;
 	}
+	public Grid(){}
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        snake = new Snake();
     	fruit = new Fruit();
     	scale = 15;
     	
@@ -49,16 +49,16 @@ public class Grid extends JPanel {
 //            g.drawLine(0, i, 375, i);
 //        }
 
-	      g.setColor(snake.getColor());
-	      for (int i = 0; i < snake.getBodySize(); ++i) {
-	    	  int posX = (int)snake.getBodyPos().get(i).getX();
-	    	  int posY = (int)snake.getBodyPos().get(i).getY();
-	          g.fillRect(posX, posY, getScale(), getScale());
-	      }
+	    g.setColor(snake.getColor());
+	    for (int i = 0; i < snake.getBodySize(); ++i) {
+	    	int posX = (int)snake.getBodyPos().get(i).getX();
+	    	int posY = (int)snake.getBodyPos().get(i).getY();
+	        g.fillRect(posX, posY, getScale(), getScale());
+	    }
 	        
-	      g.setColor(Color.RED);
-	      g.fillRect((int) fruit.getPos().getX(), (int)fruit.getPos().getY(), getScale(), getScale());
-	        
+	    g.setColor(Color.RED);
+	    g.fillRect((int) fruit.getPos().getX(), (int)fruit.getPos().getY(), getScale(), getScale());
+	       
     }
     
 }

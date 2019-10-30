@@ -27,6 +27,7 @@ public class Tela {
     private int altura = 435;
     private int posX = 650;
     private int posY = 150;
+    private boolean[] tipoCobra = new boolean[3];
     private JFrame janelaJogo;
     private Grid grid;
 
@@ -56,6 +57,9 @@ public class Tela {
 		areaBotoes.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
 		grid = new Grid();
+		tipoCobra[0] = true;
+		tipoCobra[1] = false;
+		tipoCobra[2] = false;
 		
 		GroupLayout contJanela = new GroupLayout(janelaJogo.getContentPane());
 		contJanela.setHorizontalGroup(
@@ -129,14 +133,51 @@ public class Tela {
 		mnCobra.setHorizontalAlignment(SwingConstants.CENTER);
 		menuBar.add(mnCobra);
 		
-		JButton btnComum = new JButton("Simple");
+		final JButton btnComum = new JButton("Simple");
 		mnCobra.add(btnComum);
+		btnComum.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(tipoCobra[0] == false){
+					tipoCobra[0] = true;
+					tipoCobra[1] = false;
+					tipoCobra[2] = false;
+					grid.setSnake(new Snake());
+					grid.repaint();
+				}
+				
+			}
+		});
 		
-		JButton btnStar = new JButton("Star");
+		final JButton btnStar = new JButton("Star");
 		mnCobra.add(btnStar);
+		btnStar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(tipoCobra[1] == false){
+					tipoCobra[1] = true;
+					tipoCobra[0] = false;
+					tipoCobra[2] = false;
+					grid.setSnake(new Star());
+					grid.repaint();
+				}
+			}
+		});
 		
-		JButton btnKitty = new JButton("Kitty");
+		final JButton btnKitty = new JButton("Kitty");
 		mnCobra.add(btnKitty);
+		btnKitty.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(tipoCobra[2] == false){
+					tipoCobra[2] = true;
+					tipoCobra[0] = false;
+					tipoCobra[1] = false;
+					grid.setSnake(new Kitty());
+					grid.repaint();
+				}
+			}
+		});
 		
 		final JMenu mnFrutas = new JMenu("Fruits");
 		menuBar.add(mnFrutas);
