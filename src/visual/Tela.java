@@ -2,10 +2,6 @@ package visual;
 
 import javax.swing.JFrame;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
-
-import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -24,8 +20,6 @@ import javax.swing.SpinnerNumberModel;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Tela {
 
@@ -33,76 +27,10 @@ public class Tela {
     private int altura = 435;
     private int posX = 650;
     private int posY = 150;
-    private static int scale = 15;
-    private static Snake snake = new Snake();
-    private static Fruit fruit = new Fruit();
     
     private JFrame janelaJogo;
-    
-    @SuppressWarnings("serial")
-	public static class Grid extends JPanel {
+    private Grid grid;
 
-        private List<Point> fillCells;
-
-        public Grid() {
-            fillCells = new ArrayList<>(475);
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.setColor(Color.BLACK);
-            g.fillRect(0, 0, 375, 285);
-
-//            g.setColor(Color.WHITE);
-//            for (int i = 0; i <= 360; i += getScale()) {
-//                g.drawLine(i, 0, i, 285);
-//            }
-//
-//            for (int i = 0; i <= 270; i += getScale()) {
-//                g.drawLine(0, i, 375, i);
-//            }
-            
-            
-            // Iniciando cobra 
-            g.setColor(Color.WHITE);
-            for (Point fillCell : getSnake().getBodyPos()) {
-    			int posX = (int)fillCell.getX();
-    			int posY = (int)fillCell.getY();
-                g.fillRect(posX, posY, getScale(), getScale());
-            }
-            
-            // Iniciando Fruta
-            g.setColor(Color.RED);
-            g.fillRect((int)fruit.getPos().getX(), (int)fruit.getPos().getY(), getScale(), getScale());
-                  
-        }
-
-        public void fillCell(int x, int y) {
-            fillCells.add(new Point(x, y));
-            repaint();
-        }
-        
-    }
-
-	public static int getScale() {
-		return scale;
-	}
-	public void setScale(int scale) {
-		Tela.scale = scale;
-	}
-	public static Snake getSnake() {
-		return snake;
-	}
-	public void setSnake(Snake snake) {
-		Tela.snake = snake;
-	}
-	public static Fruit getFruit() {
-		return fruit;
-	}
-	public static void setFruit(Fruit fruit) {
-		Tela.fruit = fruit;
-	}
 	public JFrame getJanelaJogo() {
 		return janelaJogo;
 	}
@@ -110,6 +38,12 @@ public class Tela {
 		this.janelaJogo = janelaJogo;
 	}
 	
+	public Grid getGrid() {
+		return grid;
+	}
+	public void setGrid(Grid grid) {
+		this.grid = grid;
+	}
 	public void beginGame() {
 		
 	}
@@ -127,7 +61,7 @@ public class Tela {
 		JLayeredPane areaBotoes = new JLayeredPane();
 		areaBotoes.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
-		Grid grid = new Grid();
+		grid = new Grid();
 		
 		GroupLayout contJanela = new GroupLayout(janelaJogo.getContentPane());
 		contJanela.setHorizontalGroup(

@@ -14,7 +14,7 @@ public class Snake {
 	
 	public Snake() {
 		bodySize = 4;
-		bodyPos = new ArrayList<Point>(4);
+		bodyPos = new ArrayList<Point>(bodySize);
 		bodyPos.add(new Point(135, 150));
 		bodyPos.add(new Point(120, 150));
 		bodyPos.add(new Point(105, 150));

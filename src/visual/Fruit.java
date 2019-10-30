@@ -14,6 +14,12 @@ public class Fruit {
 	private boolean isDecrease;
 	private Color color = new Color(255, 20, 20);
 	
+	public Fruit() {
+		int posX = getRandomNumberInRange(0, 24);
+		int posY = getRandomNumberInRange(0, 18);
+		pos = new Point(posX, posY);	
+	}
+	
 	public int getScoreValue() {
 		return scoreValue;
 	}
@@ -100,12 +106,6 @@ public class Fruit {
 
 		Random r = new Random();
 		return (r.nextInt((max - min) + 1) + min) * 15;
-	}
-	
-	public Fruit() {
-		int posX = getRandomNumberInRange(0, 24);
-		int posY = getRandomNumberInRange(0, 18);
-		pos = new Point(posX, posY);	
 	}
 
 }
