@@ -27,7 +27,6 @@ public class Tela {
     private int altura = 435;
     private int posX = 650;
     private int posY = 150;
-    
     private JFrame janelaJogo;
     private Grid grid;
 
@@ -37,15 +36,11 @@ public class Tela {
 	public void setJanelaJogo(JFrame janelaJogo) {
 		this.janelaJogo = janelaJogo;
 	}
-	
 	public Grid getGrid() {
 		return grid;
 	}
 	public void setGrid(Grid grid) {
 		this.grid = grid;
-	}
-	public void beginGame() {
-		
 	}
 
 	public Tela() {
@@ -56,9 +51,8 @@ public class Tela {
 		
 		JLayeredPane areaTitulo = new JLayeredPane();
 		areaTitulo.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		areaTitulo.setBackground(Color.WHITE);
 		
-		JLayeredPane areaBotoes = new JLayeredPane();
+		final JLayeredPane areaBotoes = new JLayeredPane();
 		areaBotoes.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
 		grid = new Grid();
@@ -87,34 +81,6 @@ public class Tela {
 					.addGap(10))
 		);
 		
-		final JButton btnNewButton = new JButton("PLAY");
-		btnNewButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				if(btnNewButton.getText() == "PLAY") {
-					btnNewButton.setText("PAUSE");
-					
-					///				 	 ///
-					///				 	 ///
-					///  COMECAR O JOGO  ///
-					///					 ///
-					///					 ///
-					
-				} else {
-					btnNewButton.setText("PLAY");
-					
-					///				 	///
-					///				 	///
-					///  PAUSAR O JOGO  ///
-					///					///
-					///					///
-				}
-			}
-		});
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnNewButton.setBounds(15, 11, 110, 35);
-		areaBotoes.add(btnNewButton);
-		
 		JTextArea textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setText("000000");
@@ -125,10 +91,10 @@ public class Tela {
 		txtrScore.setEditable(false);
 		txtrScore.setBackground(Color.LIGHT_GRAY);
 		txtrScore.setText("Score:");
-		txtrScore.setBounds(265, 20, 52, 20);
+		txtrScore.setBounds(265, 20, 42, 20);
 		areaBotoes.add(txtrScore);
 		
-		JSpinner spinner = new JSpinner();
+		final JSpinner spinner = new JSpinner();
 		spinner.setModel(new SpinnerNumberModel(1, 1, 10, 1));
 		spinner.setBounds(190, 18, 33, 20);
 		areaBotoes.add(spinner);
@@ -149,6 +115,7 @@ public class Tela {
 		textoTitulo.setText("Snake");
 		textoTitulo.setBounds(10, 8, 73, 30);
 		areaTitulo.add(textoTitulo);
+		
 		janelaJogo.getContentPane().setLayout(contJanela);
 		janelaJogo.setTitle("Snake");
 		janelaJogo.setResizable(false);
@@ -158,7 +125,7 @@ public class Tela {
 		JMenuBar menuBar = new JMenuBar();
 		janelaJogo.setJMenuBar(menuBar);
 		
-		JMenu mnCobra = new JMenu("Snake");
+		final JMenu mnCobra = new JMenu("Snake");
 		mnCobra.setHorizontalAlignment(SwingConstants.CENTER);
 		menuBar.add(mnCobra);
 		
@@ -171,7 +138,7 @@ public class Tela {
 		JButton btnKitty = new JButton("Kitty");
 		mnCobra.add(btnKitty);
 		
-		JMenu mnFrutas = new JMenu("Fruits");
+		final JMenu mnFrutas = new JMenu("Fruits");
 		menuBar.add(mnFrutas);
 		
 		JRadioButtonMenuItem rdbtnmntmSimple = new JRadioButtonMenuItem("Simple");
@@ -186,5 +153,33 @@ public class Tela {
 		
 		JRadioButtonMenuItem rdbtnmntmDecrease = new JRadioButtonMenuItem("Decrease");
 		mnFrutas.add(rdbtnmntmDecrease);
+		
+		final JButton btnNewButton = new JButton("PLAY");
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnNewButton.setBounds(15, 11, 110, 35);
+		areaBotoes.add(btnNewButton);
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(btnNewButton.getText() == "PLAY") {
+					btnNewButton.setText("PAUSE");
+					spinner.setEnabled(false);
+					mnCobra.setEnabled(false);
+					mnFrutas.setEnabled(false);
+					///				 	 ///
+					///  COMECAR O JOGO  ///
+					///					 ///
+					
+				} else {
+					btnNewButton.setText("PLAY");
+					spinner.setEnabled(true);
+					mnCobra.setEnabled(true);
+					mnFrutas.setEnabled(true);
+					///				 	///
+					///  PAUSAR O JOGO  ///
+					///					///
+				}
+			}
+		});
 	}
 }

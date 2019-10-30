@@ -11,7 +11,6 @@ public class Main {
 				try {
 					Tela window = new Tela();
 					window.getJanelaJogo().setVisible(true);
-					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
