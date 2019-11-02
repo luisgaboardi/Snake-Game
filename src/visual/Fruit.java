@@ -6,7 +6,6 @@ import java.util.Random;
 
 public class Fruit {
 	private int scoreValue;
-	private int growValue;
 	private Point pos;
 	private boolean isSimple;
 	private boolean isBomb;
@@ -15,9 +14,15 @@ public class Fruit {
 	private Color color = new Color(255, 20, 20);
 	
 	public Fruit() {
-		int posX = getRandomNumberInRange(0, 24);
-		int posY = getRandomNumberInRange(0, 18);
-		pos = new Point(posX, posY);	
+            locateFruit();
+	}
+	
+	public Point locateFruit() {
+            int posX = getRandomNumberInRange(0, 36);
+            int posY = getRandomNumberInRange(0, 28);
+            pos = new Point(posX, posY);
+            
+            return pos;
 	}
 	
 	public int getScoreValue() {
@@ -26,14 +31,6 @@ public class Fruit {
 
 	public void setScoreValue(int scoreValue) {
 		this.scoreValue = scoreValue;
-	}
-	
-	public int getGrowValue() {
-		return growValue;
-	}
-
-	public void setGrowValue(int growValue) {
-		this.growValue = growValue;
 	}
 
 	public Point getPos() {
@@ -83,20 +80,6 @@ public class Fruit {
 	public void setColor(Color color) {
 		this.color = color;
 	}
-
-	public Fruit(String type) {
-		if (type == "Simple") {
-			setGrowValue(1);
-			setScoreValue(1);
-		} else if (type == "Bomb") {
-			// Mata cobra
-		} else if (type == "Big") {
-			setGrowValue(1);
-			setScoreValue(2);
-		} else if (type == "Decrease") {
-			// Reduz cobra pra tamanho inicial
-		}
-	}
 	
 	private static int getRandomNumberInRange(int min, int max) {
 
@@ -105,7 +88,7 @@ public class Fruit {
 		}
 
 		Random r = new Random();
-		return (r.nextInt((max - min) + 1) + min) * 15;
+		return (r.nextInt((max - min) + 1) + min) * 10;
 	}
 
 }
