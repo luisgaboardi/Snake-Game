@@ -26,7 +26,6 @@ public class Grid extends JPanel implements ActionListener{
     final int pontosMatriz = 1140;
     private final int scale = 10;
     private final int delay = 100;
-    //ThreadUpdateScreen updater;
     boolean inGame = false;
     boolean morto = false;
 	
@@ -181,19 +180,19 @@ public class Grid extends JPanel implements ActionListener{
         Point posPen = snake.getBodyPos()[snake.getBodySize()-2];
         Point posNew = new Point();
             
-        if(posLast.x == posPen.x) { // Mesma coluna
+        if(posLast.x == posPen.x) {
             posNew.x = posLast.x;
-            if(posLast.y > posPen.y) { // Subindo, coloca embaixo
+            if(posLast.y > posPen.y) {
                 posNew.y = posLast.y + scale;
-            } else { // Descendo, coloca em cima
+            } else {
                 posNew.y = posLast.y - scale;
             }
                 
-        } else if(posLast.x > posPen.x) { // Indo pra esquerda
+        } else if(posLast.x > posPen.x) {
             posNew.x = posLast.x + scale;
             posNew.y = posLast.y;
             
-        } else { // Indo pra direita
+        } else {
             posNew.x = posLast.x - scale;
             posNew.y = posLast.y;
         }
@@ -260,18 +259,5 @@ public class Grid extends JPanel implements ActionListener{
         }
         repaint();
     }
-    
-//    public class ThreadUpdateScreen implements Runnable {
-//
-//        private final int threadId;
-//	
-//        public ThreadUpdateScreen(int id) {
-//            this.threadId = id;
-//        }
-//    
-//        @Override
-//        public void run() {
-//            repaint();
-//    }
 
 }
