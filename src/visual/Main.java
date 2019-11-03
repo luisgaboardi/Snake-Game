@@ -8,8 +8,7 @@ public class Main {
             try {
                 Tela window = new Tela();
                 window.getJanelaJogo().setVisible(true);
-            } catch (Exception e) {
-            }
+            } catch (Exception e) {}
         });
 
     }

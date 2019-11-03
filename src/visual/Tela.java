@@ -2,8 +2,11 @@ package visual;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -79,7 +82,7 @@ public class Tela {
                 
         JTextArea textArea = new JTextArea();
 	textArea.setEditable(false);
-	textArea.setText("000000");
+        textArea.setText("000000");
         textArea.setForeground(Color.YELLOW);
         textArea.setBackground(Color.BLACK);
 	textArea.setBounds(313, 23, 48, 15);
@@ -204,23 +207,19 @@ public class Tela {
             @Override
             public void mouseClicked(MouseEvent arg0) {
 		if("PLAY".equals(btnNewButton.getText())) {
-			btnNewButton.setText("PAUSE");
-			spinner.setEnabled(false);
-			mnSnake.setEnabled(false);
-			mnFrutas.setEnabled(false);
-                        grid.inGame = true;
-					
-		} else {
-			btnNewButton.setText("PLAY");
-			spinner.setEnabled(true);
-			mnSnake.setEnabled(true);
-			mnFrutas.setEnabled(true);
-                        grid.inGame = false;
-                        
-                }
+                    btnNewButton.setText("PAUSE");
+                    spinner.setEnabled(false);
+                    mnSnake.setEnabled(false);
+                    mnFrutas.setEnabled(false);
+                    grid.inGame = true;
+                    grid.setEnabled(true);
+		} else if("PAUSE".equals(btnNewButton.getText())) {
+                    btnNewButton.setText("PLAY");
+                    grid.inGame = false;
+                    grid.setEnabled(false);
+                } 
             }
 	});
     }
 
 }
-

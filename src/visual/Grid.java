@@ -32,6 +32,7 @@ public class Grid extends JPanel implements ActionListener{
     Timer timer;
     
     private Snake snake;
+    
     Fruit fruit;
     private boolean unico = false;
     
@@ -144,7 +145,8 @@ public class Grid extends JPanel implements ActionListener{
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(!morto) {          
+        
+        if(!morto) {
             g.setColor(snake.getColor());
             for (int z = snake.getBodySize()-1; z > 0; --z) {
                 int posX = (int)snake.getBodyPos()[z].getX();
@@ -152,16 +154,15 @@ public class Grid extends JPanel implements ActionListener{
                 g.fillRect(posX, posY, scale, scale);
             }
             
-        g.setColor(fruit.getColor()); 
-        g.fillRect(fruit.getPos().x, fruit.getPos().y, scale, scale);
+            g.setColor(fruit.getColor()); 
+            g.fillRect(fruit.getPos().x, fruit.getPos().y, scale, scale);
         
-        Toolkit.getDefaultToolkit().sync();
+            Toolkit.getDefaultToolkit().sync();
         
-        if(!unico) {
-            unico = true;
-            fruit.locateFruit();     
-        }
-              
+            if(!unico) {
+                unico = true;
+                fruit.locateFruit();     
+            } 
         } else {
             gameOver(g);
         }
@@ -197,8 +198,7 @@ public class Grid extends JPanel implements ActionListener{
             posNew.y = posLast.y;
         }
         
-        snake.setBodySize(snake.getBodySize() + 1);
-        
+        snake.setBodySize(snake.getBodySize() + 1);     
         snake.getBodyPos()[snake.getBodySize()-1] = new Point(posNew.x, posNew.y);
     }
 
@@ -256,8 +256,8 @@ public class Grid extends JPanel implements ActionListener{
             comeu = checkApple();
             snake.move();
             if(comeu) addPart();
+            repaint();
         }
-        repaint();
     }
 
 }
