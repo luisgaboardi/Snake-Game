@@ -4,13 +4,15 @@ Descrição do Projeto
 
 Tem as seguintes funionalidades:
 
-- Implementado o Game Loop do Jogo com tela de Game Over ao final
+- Implementado o Game Loop do Jogo com tela de Game Over ao final que mostra a pontuação
 - Implementado a interface Swing e interação com o usuário
-- Implementada a snake **comum**
+- Implementada as snakes **Comum**, **Star** e **Kitty**
+- Implementada opção de escolher com qual snake jogar no início do jogo
 - Implementado movimento da cobra
-- Implementado cobras atravessarem as bordas e aparecerem no lado oposto
-- Implementado a fruta **simples**
+- Implementado cobras atravessarem as bordas e aparecerem no lado oposto (Com exceção da Star)
+- Implementado as frutas **Simples**, **Bomb**, **Big** e **Decrease**
 - Implementado aparecer uma fruta por vez em posição aleatória
+- Implementado pontuação relativa à velocidade da cobra
 - Implementado a opção de pausar
 
 # EP2 - OO 2019.2 (UnB - Gama)
