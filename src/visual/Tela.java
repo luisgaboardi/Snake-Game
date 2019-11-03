@@ -103,7 +103,6 @@ public class Tela {
         txtrSpeed.setText("Speed");
         txtrSpeed.setBounds(145, 22, 55, 20);
         areaBotoes.add(txtrSpeed);
-        //grid.setLayout(null);
 
         JTextArea textoTitulo = new JTextArea();
         textoTitulo.setEditable(false);

@@ -202,7 +202,8 @@ public class Grid extends JPanel implements ActionListener {
         setBackground(Color.BLACK);
         g.setColor(Color.white);
         g.setFont(small);
-        g.drawString(msg, (width - metr.stringWidth(msg)) / 2, height / 2);
+        g.drawString(msg, (width - metr.stringWidth(msg)) / 2, height / 3);
+        g.drawString(("Score: " + snake.getScore()), (width - metr.stringWidth("Score: " + snake.getScore())) / 2, height / 2);
 
         timer.stop();
     }
@@ -220,8 +221,10 @@ public class Grid extends JPanel implements ActionListener {
                     unico = false;
                 } else {
                     unico = snake.addPart();
+                    if (snake instanceof Star) {
+                        fruit.setScoreValue(2 * fruit.getScoreValue());
+                    }
                     snake.setScore(snake.getScore() + fruit.getScoreValue());
-                    
                 }
             }
             snake.move();
