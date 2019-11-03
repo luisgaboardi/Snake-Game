@@ -15,7 +15,7 @@ public class Tela {
     private final int posX = 600;
     private final int posY = 250;
     private JFrame janelaJogo;
-    protected map mapa;
+    protected visual.map mapa;
 
     public JFrame getJanelaJogo() {
         return janelaJogo;
@@ -39,7 +39,7 @@ public class Tela {
         final JLayeredPane localBotoes = new JLayeredPane();
         localBotoes.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 
-        mapa = new map();
+        mapa = new visual.map();
 
         GroupLayout contJanela = new GroupLayout(janelaJogo.getContentPane());
         contJanela.setHorizontalGroup(
