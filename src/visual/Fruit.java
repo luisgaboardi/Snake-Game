@@ -5,13 +5,9 @@ import java.awt.Point;
 import java.util.Random;
 
 public class Fruit {
-	private int scoreValue;
+	int scoreValue;
 	private Point pos;
-	private boolean isSimple;
-	private boolean isBomb;
-	private boolean isBig;
-	private boolean isDecrease;
-	private Color color = new Color(255, 20, 20);
+	private Color color = new Color(0, 45, 255);
 	
 	public Fruit() {
             locateFruit();
@@ -39,38 +35,6 @@ public class Fruit {
 
 	public void setPos(Point pos) {
 		this.pos = pos;
-	}
-
-	public boolean isSimple() {
-		return isSimple;
-	}
-
-	public void setSimple(boolean isSimple) {
-		this.isSimple = isSimple;
-	}
-
-	public boolean isBomb() {
-		return isBomb;
-	}
-
-	public void setBomb(boolean isBomb) {
-		this.isBomb = isBomb;
-	}
-
-	public boolean isBig() {
-		return isBig;
-	}
-
-	public void setBig(boolean isBig) {
-		this.isBig = isBig;
-	}
-
-	public boolean isDecrease() {
-		return isDecrease;
-	}
-
-	public void setDecrease(boolean isDecrease) {
-		this.isDecrease = isDecrease;
 	}
 
 	public Color getColor() {

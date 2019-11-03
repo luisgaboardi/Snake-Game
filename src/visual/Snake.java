@@ -57,6 +57,64 @@ public class Snake {
                 bodyPos[0].y += scale;
             }
     }
+        
+        public boolean checkCollision() {
+
+            boolean morto = false;
+            
+            for (int z = getBodySize()-1; z > 0; --z) {
+                if ((getBodyPos()[0].x == getBodyPos()[z].x) && (getBodyPos()[0].y == getBodyPos()[z].y)) {
+                    morto = true;
+                }
+            }
+        
+            if (getBodyPos()[0].y >= 290) {
+                getBodyPos()[0].y = 0;
+            }
+
+            if (getBodyPos()[0].y < 0) {
+                getBodyPos()[0].y = 290 - scale;
+            }
+
+            if (getBodyPos()[0].x >= 370) {
+                getBodyPos()[0].x = 0;
+            }
+
+            if (getBodyPos()[0].x < 0) {
+                getBodyPos()[0].x = 370 - scale;
+            }
+        
+            return morto;
+        }
+        
+        public boolean addPart() {
+        
+            Point posLast = getBodyPos()[getBodySize()-1];
+            Point posPen = getBodyPos()[getBodySize()-2];
+            Point posNew = new Point();
+            
+            if(posLast.x == posPen.x) {
+                posNew.x = posLast.x;
+                if(posLast.y > posPen.y) {
+                    posNew.y = posLast.y + scale;
+                } else {
+                    posNew.y = posLast.y - scale;
+                }
+                
+            } else if(posLast.x > posPen.x) {
+                posNew.x = posLast.x + scale;
+                posNew.y = posLast.y;
+            
+            } else {
+                posNew.x = posLast.x - scale;
+                posNew.y = posLast.y;
+            }
+        
+            setBodySize(getBodySize() + 1);     
+            getBodyPos()[getBodySize()-1] = new Point(posNew.x, posNew.y);
+            
+            return false;
+        }
 
 	public int getBodySize() {
 		return bodySize;
