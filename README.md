@@ -1,34 +1,22 @@
-# Snake da Carla
+# Snake da Luís
 
-Essse projeto bla bla oo, oaoa
+Descrição do Projeto
 
-tem as seguintes funionalidades:
+Tem as seguintes funionalidades:
 
-- Implementado as snakes **comum** e **kitty**
-- Implementado a fruta simples
-
-
-# Como Jogar
-
-1. Entre na pasta bin
-2. Execute o programa (tenha um virtual machine java instalado)
-3. Comandos
-
-# Como compilar
-
-No terminal
-
-```javac Nomeprograma.java```
-
-executar
-
-```NomePrograma```
-
+- Implementado o Game Loop do Jogo com tela de Game Over ao final
+- Implementado a interface Swing e interação com o usuário
+- Implementada a snake **comum**
+- Implementado movimento da cobra
+- Implementado cobras atravessarem as bordas e aparecerem no lado oposto
+- Implementado a fruta **simples**
+- Implementado aparecer uma fruta por vez em posição aleatória
+- Implementado a opção de pausar
 
 # EP2 - OO 2019.2 (UnB - Gama)
 
-Turmas Renato e Carla
-Data de entrega: 05/11/2019
+Turma da Carla
+Data de entrega: 12/11/2019
 
 ## Descrição
 
