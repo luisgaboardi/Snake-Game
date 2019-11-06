@@ -112,7 +112,7 @@ public class snake{
         this.cor = cor;
     }
 
-    public int getScore(int i) {
+    public int getScore() {
         return score;
     }
 
