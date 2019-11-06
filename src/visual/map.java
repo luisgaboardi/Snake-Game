@@ -27,6 +27,8 @@ public class map extends JPanel implements ActionListener {
     private snake normal;
     private kitty scape;
 
+    private star dobro;
+
     private final int x[] = new int[PontosMatriz];
     private final int y[] = new int[PontosMatriz];
 
@@ -40,6 +42,14 @@ public class map extends JPanel implements ActionListener {
 
     public kitty getKitty() {return scape;}
     public void setKitty(kitty scape) {this.scape = scape;}
+
+    public star getStar() {
+        return dobro;
+    }
+
+    public void setStar(star dobro) {
+        this.dobro = dobro;
+    }
 
     public map(){
         setTrueNormal(true);
@@ -64,6 +74,13 @@ public class map extends JPanel implements ActionListener {
             for(int z = 0; z < scape.getTamanhoDaCobra();z++){
                 scape.getPosicaoCorpo()[z].x = 100-z*escala;
                 scape.getPosicaoCorpo()[z].y = 100;
+            }
+        }
+        else if(trueStar == true){
+            this.dobro = new star(PontosMatriz);
+            for(int z = 0; z < dobro.getTamanhoDaCobra();z++){
+                dobro.getPosicaoCorpo()[z].x = 100-z*escala;
+                dobro.getPosicaoCorpo()[z].y = 100;
             }
         }
 
