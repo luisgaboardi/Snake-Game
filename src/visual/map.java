@@ -33,13 +33,18 @@ public class map extends JPanel implements ActionListener {
     public snake getSnake(){
         return normal;
     }
-
-    public kitty getKitty() {return scape;}
     public void setSnake(snake snake){
         this.normal = normal;
     }
 
+
+    public kitty getKitty() {return scape;}
+    public void setKitty(kitty scape) {this.scape = scape;}
+
     public map(){
+        setTrueNormal(true);
+        setTrueKitty(false);
+        setTrueStar(false);
         setBackground(Color.black);
         setPreferredSize(new Dimension(B_WIDTH,B_HEIGHT));
         setFocusable(true);
@@ -47,11 +52,21 @@ public class map extends JPanel implements ActionListener {
     }
 
     private void iniciarJogo(){
-        this.normal = new snake(PontosMatriz);
-        for(int z = 0; z < normal.getTamanhoDaCobra();z++){
-            normal.getPosicaoCorpo()[z].x = 100-z*escala;
-            normal.getPosicaoCorpo()[z].y = 100;
+        if(trueNormal == true){
+            this.normal = new snake(PontosMatriz);
+            for(int z = 0; z < normal.getTamanhoDaCobra();z++){
+                normal.getPosicaoCorpo()[z].x = 100-z*escala;
+                normal.getPosicaoCorpo()[z].y = 100;
+            }
         }
+        else if(trueKitty == true){
+            this.scape = new kitty(PontosMatriz);
+            for(int z = 0; z < scape.getTamanhoDaCobra();z++){
+                scape.getPosicaoCorpo()[z].x = 100-z*escala;
+                scape.getPosicaoCorpo()[z].y = 100;
+            }
+        }
+
         timer = new Timer(DELAY,this);
         timer.start();
         repaint();
@@ -78,12 +93,28 @@ public class map extends JPanel implements ActionListener {
         }
     }
 
+    public boolean isTrueNormal() {
+        return trueNormal;
+    }
+
+    public void setTrueNormal(boolean trueNormal) {
+        this.trueNormal = trueNormal;
+    }
+
     public boolean isTrueKitty() {
         return trueKitty;
     }
 
     public void setTrueKitty(boolean trueKitty) {
         this.trueKitty = trueKitty;
+    }
+
+    public boolean isTrueStar() {
+        return trueStar;
+    }
+
+    public void setTrueStar(boolean trueStar) {
+        this.trueStar = trueStar;
     }
 
     @Override
