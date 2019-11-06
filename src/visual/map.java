@@ -22,6 +22,7 @@ public class map extends JPanel implements ActionListener {
     Timer timer;
 
     private snake normal;
+    private kitty 
 
     private final int x[] = new int[PontosMatriz];
     private final int y[] = new int[PontosMatriz];
@@ -76,5 +77,8 @@ public class map extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
 
+    }
+
+    public snake getKitty() {
     }
 }
