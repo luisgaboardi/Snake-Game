@@ -13,7 +13,6 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
-
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
@@ -30,16 +29,13 @@ public class Grid extends JPanel implements ActionListener {
     boolean morto = false;
 
     Timer timer;
-
     private Snake snake;
-
     Fruit fruit;
     private boolean unico = false;
 
     public Snake getSnake() {
         return snake;
     }
-
     public void setSnake(Snake snake) {
         this.snake = snake;
     }
@@ -56,6 +52,7 @@ public class Grid extends JPanel implements ActionListener {
 
     public void initGame() {
         this.snake = new Snake(pontosMatriz);
+        
         for (int z = 0; z < snake.getBodySize(); z++) {
             snake.getBodyPos()[z].x = 100 - z * scale;
             snake.getBodyPos()[z].y = 100;
@@ -63,7 +60,7 @@ public class Grid extends JPanel implements ActionListener {
 
         randomFruit();
 
-        timer = new Timer(delay, this);
+        timer = new Timer(delay, this); // Thread aqui
         timer.start();
 
         Action leftAction = new AbstractAction() {
@@ -73,10 +70,10 @@ public class Grid extends JPanel implements ActionListener {
                     snake.leftDirection = true;
                     snake.upDirection = false;
                     snake.downDirection = false;
-                    repaint();
                 }
             }
         };
+
         Action rightAction = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -84,7 +81,6 @@ public class Grid extends JPanel implements ActionListener {
                     snake.rightDirection = true;
                     snake.upDirection = false;
                     snake.downDirection = false;
-                    repaint();
                 }
             }
         };
@@ -95,7 +91,6 @@ public class Grid extends JPanel implements ActionListener {
                     snake.upDirection = true;
                     snake.rightDirection = false;
                     snake.leftDirection = false;
-                    repaint();
                 }
 
             }
@@ -107,7 +102,6 @@ public class Grid extends JPanel implements ActionListener {
                     snake.downDirection = true;
                     snake.rightDirection = false;
                     snake.leftDirection = false;
-                    repaint();
                 }
             }
         };
@@ -148,6 +142,7 @@ public class Grid extends JPanel implements ActionListener {
 
         if (!morto) {
             g.setColor(snake.getColor());
+            
             for (int z = snake.getBodySize() - 1; z > 0; --z) { // Fixes delay in eating fruit
                 int posX = (int) snake.getBodyPos()[z].getX();
                 int posY = (int) snake.getBodyPos()[z].getY();
@@ -176,13 +171,11 @@ public class Grid extends JPanel implements ActionListener {
         if (randomFruit >= 10 && randomFruit < 60) {
             fruit = new Fruit();
             fruit.setScoreValue(snake.getSpeed());
-            return;
         } else if (randomFruit >= 60 && randomFruit < 80) {
             fruit = new Bomb();
         } else if (randomFruit >= 80) {
             fruit = new Big();
             fruit.setScoreValue(2 * snake.getSpeed());
-            return;
         } else if (randomFruit < 10) {
             fruit = new Decrease();
         }
@@ -206,6 +199,7 @@ public class Grid extends JPanel implements ActionListener {
         g.drawString(("Score: " + snake.getScore()), (width - metr.stringWidth("Score: " + snake.getScore())) / 2, height / 2);
 
         timer.stop();
+        
     }
 
     @Override

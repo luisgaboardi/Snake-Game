@@ -40,7 +40,7 @@ public class Tela {
 
         janelaJogo = new JFrame();
         janelaJogo.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 12));
-        janelaJogo.getContentPane().setBackground(Color.LIGHT_GRAY);
+        janelaJogo.getContentPane().setBackground(new Color(0, 90, 0));
         janelaJogo.setSize(width, height);
 
         JLayeredPane areaTitulo = new JLayeredPane();
@@ -84,30 +84,33 @@ public class Tela {
         textArea.setBounds(313, 23, 48, 15);
         areaBotoes.add(textArea);
 
-        JTextArea txtrScore = new JTextArea();
-        txtrScore.setEditable(false);
-        txtrScore.setBackground(Color.LIGHT_GRAY);
-        txtrScore.setText("Score:");
-        txtrScore.setBounds(260, 22, 50, 30);
-        areaBotoes.add(txtrScore);
+        JTextArea txtScore = new JTextArea();
+        txtScore.setEditable(false);
+        txtScore.setForeground(Color.BLACK);
+        txtScore.setBackground(new Color(0, 90, 0));
+        txtScore.setText("Score:");
+        txtScore.setBounds(270, 22, 45, 15);
+        areaBotoes.add(txtScore);
 
-        final JSpinner spinner = new JSpinner();
-        spinner.setModel(new SpinnerNumberModel(1, 1, 10, 1));
-        spinner.setBounds(200, 21, 35, 20);
-        spinner.setValue(5);
-        areaBotoes.add(spinner);
+        final JSpinner speedValue = new JSpinner();
+        speedValue.setModel(new SpinnerNumberModel(1, 1, 10, 1));
+        speedValue.setBounds(200, 21, 35, 20);
+        speedValue.setValue(5);
+        areaBotoes.add(speedValue);
 
-        JTextArea txtrSpeed = new JTextArea();
-        txtrSpeed.setEditable(false);
-        txtrSpeed.setBackground(Color.LIGHT_GRAY);
-        txtrSpeed.setText("Speed");
-        txtrSpeed.setBounds(145, 22, 55, 20);
-        areaBotoes.add(txtrSpeed);
+        JTextArea txtSpeed = new JTextArea();
+        txtSpeed.setEditable(false);
+        txtSpeed.setForeground(Color.BLACK);
+        txtSpeed.setBackground(new Color(0, 90, 0));
+        txtSpeed.setText("Speed");
+        txtSpeed.setBounds(155, 22, 40, 17);
+        areaBotoes.add(txtSpeed);
 
         JTextArea textoTitulo = new JTextArea();
         textoTitulo.setEditable(false);
         textoTitulo.setFont(new Font("Arial Black", Font.BOLD, 20));
-        textoTitulo.setBackground(Color.LIGHT_GRAY);
+        textoTitulo.setBackground(new Color(0, 90, 0));
+        textoTitulo.setForeground(Color.BLACK);
         areaTitulo.setLayer(textoTitulo, 0);
         textoTitulo.setText("Snake");
         textoTitulo.setBounds(10, 8, 70, 22);
@@ -122,12 +125,12 @@ public class Tela {
         JMenuBar menuBar = new JMenuBar();
         janelaJogo.setJMenuBar(menuBar);
 
-        final JMenu mnSnake = new JMenu("Snake");
-        mnSnake.setHorizontalAlignment(SwingConstants.CENTER);
-        menuBar.add(mnSnake);
+        final JMenu menuSnake = new JMenu("Snake");
+        menuSnake.setHorizontalAlignment(SwingConstants.CENTER);
+        menuBar.add(menuSnake);
 
         final JButton btnSimple = new JButton("Simple");
-        mnSnake.add(btnSimple);
+        menuSnake.add(btnSimple);
         btnSimple.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent arg0) {
@@ -137,7 +140,6 @@ public class Tela {
                     grid.getSnake().snakeType[2] = false;
                     grid.getSnake().score = 0;
                     grid.setSnake(new Snake(grid.pontosMatriz));
-                    grid.fruit.locateFruit();
                     grid.repaint();
                 }
 
@@ -145,7 +147,7 @@ public class Tela {
         });
 
         final JButton btnStar = new JButton("Star");
-        mnSnake.add(btnStar);
+        menuSnake.add(btnStar);
         btnStar.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent arg0) {
@@ -155,14 +157,13 @@ public class Tela {
                     grid.getSnake().snakeType[2] = false;
                     grid.getSnake().score = 0;
                     grid.setSnake(new Star(grid.pontosMatriz));
-                    grid.fruit.locateFruit();
                     grid.repaint();
                 }
             }
         });
 
         final JButton btnKitty = new JButton("Kitty");
-        mnSnake.add(btnKitty);
+        menuSnake.add(btnKitty);
         btnKitty.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent arg0) {
@@ -172,7 +173,6 @@ public class Tela {
                     grid.getSnake().snakeType[1] = false;
                     grid.getSnake().score = 0;
                     grid.setSnake(new Kitty(grid.pontosMatriz));
-                    grid.fruit.locateFruit();
                     grid.repaint();
                 }
             }
@@ -181,35 +181,35 @@ public class Tela {
         final JMenu mnFrutas = new JMenu("Fruits");
         menuBar.add(mnFrutas);
 
-        JRadioButtonMenuItem rdbtnmntmSimple = new JRadioButtonMenuItem("Simple");
-        rdbtnmntmSimple.setSelected(true);
-        mnFrutas.add(rdbtnmntmSimple);
+        JRadioButtonMenuItem btnFruitSimple = new JRadioButtonMenuItem("Simple");
+        btnFruitSimple.setSelected(true);
+        mnFrutas.add(btnFruitSimple);
 
-        JRadioButtonMenuItem rdbtnmntmBomb = new JRadioButtonMenuItem("Bomb");
-        mnFrutas.add(rdbtnmntmBomb);
+        JRadioButtonMenuItem btnFruitBomb = new JRadioButtonMenuItem("Bomb");
+        mnFrutas.add(btnFruitBomb);
 
-        JRadioButtonMenuItem rdbtnmntmBig = new JRadioButtonMenuItem("Big");
-        mnFrutas.add(rdbtnmntmBig);
+        JRadioButtonMenuItem btnFruitBig = new JRadioButtonMenuItem("Big");
+        mnFrutas.add(btnFruitBig);
 
-        JRadioButtonMenuItem rdbtnmntmDecrease = new JRadioButtonMenuItem("Decrease");
-        mnFrutas.add(rdbtnmntmDecrease);
+        JRadioButtonMenuItem btnFruitDecrease = new JRadioButtonMenuItem("Decrease");
+        mnFrutas.add(btnFruitDecrease);
 
-        final JButton btnNewButton = new JButton("PLAY");
-        btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-        btnNewButton.setBounds(12, 13, 110, 35);
-        areaBotoes.add(btnNewButton);
-        btnNewButton.addMouseListener(new MouseAdapter() {
+        final JButton btnPlay = new JButton("PLAY");
+        btnPlay.setFont(new Font("Tahoma", Font.BOLD, 16));
+        btnPlay.setBounds(12, 13, 110, 35);
+        areaBotoes.add(btnPlay);
+        btnPlay.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent arg0) {
-                if ("PLAY".equals(btnNewButton.getText())) {
-                    btnNewButton.setText("PAUSE");
-                    spinner.setEnabled(false);
-                    mnSnake.setEnabled(false);
+                if ("PLAY".equals(btnPlay.getText())) {
+                    btnPlay.setText("PAUSE");
+                    speedValue.setEnabled(false);
+                    menuSnake.setEnabled(false);
                     mnFrutas.setEnabled(false);
                     grid.inGame = true;
                     grid.setEnabled(true);
-                } else if ("PAUSE".equals(btnNewButton.getText())) {
-                    btnNewButton.setText("PLAY");
+                } else if ("PAUSE".equals(btnPlay.getText())) {
+                    btnPlay.setText("PLAY");
                     grid.inGame = false;
                     grid.setEnabled(false);
                 }

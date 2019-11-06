@@ -2,7 +2,6 @@ package visual;
 
 import java.awt.Color;
 
-
 public class Star extends Snake {
 
 	public Star(int pontos) {
