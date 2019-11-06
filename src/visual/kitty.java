@@ -10,8 +10,4 @@ public class kitty extends snake{
         cor = new Color(255,153,205);
         score = 0;
     }
-
-    public int getScore(int i) {
-        return score;
-    }
 }
