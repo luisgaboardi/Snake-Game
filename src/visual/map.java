@@ -10,6 +10,9 @@ public class map extends JPanel implements ActionListener {
     private final int B_WIDTH = 300;
     private final int B_HEIGHT = 300;
     private final int escala = 10;
+    private boolean trueNormal;
+    private boolean trueKitty;
+    private boolean trueStar;
 
     public int getPontosMatriz() {
         return PontosMatriz;
@@ -22,7 +25,7 @@ public class map extends JPanel implements ActionListener {
     Timer timer;
 
     private snake normal;
-    private kitty 
+    private kitty scape;
 
     private final int x[] = new int[PontosMatriz];
     private final int y[] = new int[PontosMatriz];
@@ -31,6 +34,7 @@ public class map extends JPanel implements ActionListener {
         return normal;
     }
 
+    public kitty getKitty() {return scape;}
     public void setSnake(snake snake){
         this.normal = normal;
     }
@@ -74,11 +78,16 @@ public class map extends JPanel implements ActionListener {
         }
     }
 
+    public boolean isTrueKitty() {
+        return trueKitty;
+    }
+
+    public void setTrueKitty(boolean trueKitty) {
+        this.trueKitty = trueKitty;
+    }
+
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
 
-    }
-
-    public snake getKitty() {
     }
 }
