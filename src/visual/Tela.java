@@ -1,6 +1,4 @@
 package visual;
-
-
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
@@ -116,8 +114,12 @@ public class Tela {
         btnComum.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent arg0) {
-                mapa.getSnake().getScore(0);
+                mapa.setTrueStar(false);
+                mapa.setTrueKitty(false);
+                mapa.setTrueNormal(true);
+                mapa.getSnake().setScore(0);
                 mapa.setSnake(new snake(mapa.getPontosMatriz()));
+                janelaJogo.repaint();
 
             }
         });
@@ -126,7 +128,14 @@ public class Tela {
         menuCobras.add(btnKitty);
         btnKitty.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent arg0) {}
+            public void mouseClicked(MouseEvent arg0) {
+                mapa.setTrueStar(false);
+                mapa.setTrueKitty(true);
+                mapa.setTrueNormal(false);
+                mapa.getSnake().setScore(0);
+                mapa.setKitty(new kitty(mapa.getPontosMatriz()));
+                janelaJogo.repaint();
+            }
         });
 
         final JButton btnStar = new JButton("Star");
