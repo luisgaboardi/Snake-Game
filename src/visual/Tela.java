@@ -142,7 +142,14 @@ public class Tela {
         menuCobras.add(btnStar);
         btnStar.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent arg0) {}
+            public void mouseClicked(MouseEvent arg0) {
+                mapa.setTrueStar(true);
+                mapa.setTrueKitty(false);
+                mapa.setTrueNormal(false);
+                mapa.getSnake().setScore(0);
+                mapa.setStar(new star(mapa.getPontosMatriz()));
+                janelaJogo.repaint();
+            }
         });
 
         final JMenu menuFrutas = new JMenu("Fruitas");
