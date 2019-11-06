@@ -1,3 +1,5 @@
+package visual;
+
 import visual.snake;
 
 import java.awt.*;
