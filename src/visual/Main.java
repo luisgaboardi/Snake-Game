@@ -6,7 +6,7 @@ public class Main {
     public static void main(String args[]) {
         EventQueue.invokeLater(() -> {
             try {
-                Tela window = new Tela();
+                Janela window = new Janela();
                 window.getJanelaJogo().setVisible(true);
             } catch (Exception e) {}
         });
