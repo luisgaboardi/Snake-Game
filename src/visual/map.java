@@ -3,6 +3,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class map extends JPanel implements ActionListener {
@@ -20,13 +22,13 @@ public class map extends JPanel implements ActionListener {
 
     private final int PontosMatriz = 900;
     private final int DELAY = 100;
-    boolean jogando = false;
-    boolean morto = false;
+
+    private boolean jogando = false;
+    private boolean morto = false;
     Timer timer;
 
     private snake normal;
     private kitty scape;
-
     private star dobro;
 
     private final int x[] = new int[PontosMatriz];
@@ -55,6 +57,7 @@ public class map extends JPanel implements ActionListener {
         setTrueNormal(true);
         setTrueKitty(false);
         setTrueStar(false);
+        addKeyListener(new comandos());
         setBackground(Color.black);
         setPreferredSize(new Dimension(B_WIDTH,B_HEIGHT));
         setFocusable(true);
@@ -62,31 +65,31 @@ public class map extends JPanel implements ActionListener {
     }
 
     private void iniciarJogo(){
-        if(trueNormal == true){
-            this.normal = new snake(PontosMatriz);
-            for(int z = 0; z < normal.getTamanhoDaCobra();z++){
-                normal.getPosicaoCorpo()[z].x = 100-z*escala;
-                normal.getPosicaoCorpo()[z].y = 100;
+            if(trueNormal == true){
+                this.normal = new snake(PontosMatriz);
+                for(int z = 0; z < normal.getTamanhoDaCobra();z++){
+                    normal.getPosicaoCorpo()[z].x = 100-z*escala;
+                    normal.getPosicaoCorpo()[z].y = 100;
+                }
             }
-        }
-        else if(trueKitty == true){
-            this.scape = new kitty(PontosMatriz);
-            for(int z = 0; z < scape.getTamanhoDaCobra();z++){
-                scape.getPosicaoCorpo()[z].x = 100-z*escala;
-                scape.getPosicaoCorpo()[z].y = 100;
+            else if(trueKitty == true){
+                this.scape = new kitty(PontosMatriz);
+                for(int z = 0; z < scape.getTamanhoDaCobra();z++){
+                    scape.getPosicaoCorpo()[z].x = 100-z*escala;
+                    scape.getPosicaoCorpo()[z].y = 100;
+                }
             }
-        }
-        else if(trueStar == true){
-            this.dobro = new star(PontosMatriz);
-            for(int z = 0; z < dobro.getTamanhoDaCobra();z++){
-                dobro.getPosicaoCorpo()[z].x = 100-z*escala;
-                dobro.getPosicaoCorpo()[z].y = 100;
+            else if(trueStar == true){
+                this.dobro = new star(PontosMatriz);
+                for(int z = 0; z < dobro.getTamanhoDaCobra();z++){
+                    dobro.getPosicaoCorpo()[z].x = 100-z*escala;
+                    dobro.getPosicaoCorpo()[z].y = 100;
+                }
             }
-        }
 
-        timer = new Timer(DELAY,this);
-        timer.start();
-        repaint();
+            timer = new Timer(DELAY,this);
+            timer.start();
+            repaint();
     }
 
     protected void bindKeyStroke(int condition, String name, KeyStroke keyStroke, Action action) {
@@ -101,13 +104,24 @@ public class map extends JPanel implements ActionListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(snake.getCor());
-        for (int z = normal.getTamanhoDaCobra() - 1; z > 0; --z) {
-            int posX = (int) normal.getPosicaoCorpo()[z].getX();
-            int posY = (int) normal.getPosicaoCorpo()[z].getY();
-            g.fillRect(posX, posY, escala, escala);
-
+        if(jogando == true) {
+            g.setColor(snake.getCor());
+            for (int z = normal.getTamanhoDaCobra() - 1; z > 0; --z) {
+                int posX = (int) normal.getPosicaoCorpo()[z].getX();
+                int posY = (int) normal.getPosicaoCorpo()[z].getY();
+                g.fillRect(posX, posY, escala, escala);
+            }
         }
+        Toolkit.getDefaultToolkit().sync();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (jogando) {
+            normal.move();
+        }
+        repaint();
     }
 
     public boolean isTrueNormal() {
@@ -134,8 +148,19 @@ public class map extends JPanel implements ActionListener {
         this.trueStar = trueStar;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
+    public boolean isJogando() {
+        return jogando;
+    }
 
+    public void setJogando(boolean jogando) {
+        this.jogando = jogando;
+    }
+
+    public boolean isMorto() {
+        return morto;
+    }
+
+    public void setMorto(boolean morto) {
+        this.morto = morto;
     }
 }
