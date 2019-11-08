@@ -87,13 +87,13 @@ public class Tela {
         spinner.setValue(5);
         localBotoes.add(spinner);
 
-        JTextArea txtrSpeed = new JTextArea();
-        txtrSpeed.setEditable(false);
-        txtrSpeed.setBackground(Color.DARK_GRAY);
-        txtrSpeed.setForeground(Color.WHITE);
-        txtrSpeed.setText("Speed");
-        txtrSpeed.setBounds(280, 22, 55, 20);
-        localBotoes.add(txtrSpeed);
+        JTextArea txtSpeed = new JTextArea();
+        txtSpeed.setEditable(false);
+        txtSpeed.setBackground(Color.DARK_GRAY);
+        txtSpeed.setForeground(Color.WHITE);
+        txtSpeed.setText("Speed");
+        txtSpeed.setBounds(280, 22, 55, 20);
+        localBotoes.add(txtSpeed);
         mapa.setLayout(null);
 
         janelaJogo.getContentPane().setLayout(contJanela);
@@ -182,12 +182,14 @@ public class Tela {
                     menuCobras.setEnabled(false);
                     menuFrutas.setEnabled(false);
                     mapa.setEnabled(true);
+                    mapa.setJogando(true);
                 } else if("PAUSE".equals(start.getText())) {
                     start.setText("START");
                     mapa.setEnabled(false);
                     spinner.setEnabled(true);
                     menuCobras.setEnabled(true);
                     menuFrutas.setEnabled(true);
+                    mapa.setJogando(false);
                 }
             }
         });
