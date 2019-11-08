@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class snake{
+public class snake extends KeyAdapter{
     protected boolean andandoDireita = true;
     protected boolean andandoEsquerda = false;
     protected boolean andandoCima = false;
@@ -45,34 +45,6 @@ public class snake{
         }
         if(andandoCima){
             posicaoCorpo[0].y -= escala;
-        }
-    }
-
-    private class comando extends KeyAdapter{
-        public void botaoApertado(KeyEvent evento) {
-            int botao = evento.getKeyCode();
-            if(botao == KeyEvent.VK_LEFT && (!andandoDireita)){
-                andandoEsquerda = true;
-                andandoBaixo = false;
-                andandoCima = false;
-            }
-
-            if(botao == KeyEvent.VK_RIGHT && (!andandoEsquerda)){
-                andandoDireita = true;
-                andandoBaixo = false;
-                andandoCima = false;
-            }
-
-            if(botao == KeyEvent.VK_DOWN && (!andandoCima)){
-                andandoBaixo = true;
-                andandoEsquerda = false;
-                andandoDireita = false;
-            }
-            if(botao == KeyEvent.VK_UP && (!andandoBaixo)){
-                andandoCima = true;
-                andandoEsquerda = false;
-                andandoDireita = false;
-            }
         }
     }
 
