@@ -6,7 +6,7 @@ import java.awt.Point;
 public class Snake {
 
     private int bodySize;
-    private Point[] bodyPos;
+    private final Point[] bodyPos;
     private final int scale = 10;
     private int speed;
     private Color color;

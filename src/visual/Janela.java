@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,14 +20,12 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import static javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
@@ -173,7 +172,6 @@ public class Janela {
                     grid.setSnake(new Snake(grid.pontosMatriz));
                     grid.repaint();
                 }
-
             }
         });
 
@@ -209,22 +207,6 @@ public class Janela {
             }
         });
 
-        final JMenu menuFrutas = new JMenu("Fruits");
-        menuBar.add(menuFrutas);
-
-        JRadioButtonMenuItem btnFruitSimple = new JRadioButtonMenuItem("Simple");
-        btnFruitSimple.setSelected(true);
-        menuFrutas.add(btnFruitSimple);
-
-        JRadioButtonMenuItem btnFruitBomb = new JRadioButtonMenuItem("Bomb");
-        menuFrutas.add(btnFruitBomb);
-
-        JRadioButtonMenuItem btnFruitBig = new JRadioButtonMenuItem("Big");
-        menuFrutas.add(btnFruitBig);
-
-        JRadioButtonMenuItem btnFruitDecrease = new JRadioButtonMenuItem("Decrease");
-        menuFrutas.add(btnFruitDecrease);
-
         btnPlay = new JButton("PLAY");
         btnPlay.setFont(new Font("Tahoma", Font.BOLD, 16));
         btnPlay.setBounds(12, 13, 110, 35);
@@ -236,14 +218,12 @@ public class Janela {
                     btnPlay.setText("PAUSE");
                     speedValue.setEnabled(false);
                     menuSnake.setEnabled(false);
-                    menuFrutas.setEnabled(false);
                     grid.setEnabled(true);
                     grid.inGame = true;
-                    grid.setEnabled(true);
                     int speed = speedFormula(grid.getSnake().getSpeed());
                     grid.timer = new Timer(speed, grid); // Thread aqui
                     grid.timer.start();
-                    grid.repaint();
+                    //grid.repaint();
                 } else if ("PAUSE".equals(btnPlay.getText())) {
                     btnPlay.setText("PLAY");
                     grid.inGame = false;
@@ -264,14 +244,14 @@ public class Janela {
 
         private final int width = 370;
         private final int height = 290;
-        final int pontosMatriz = 1073;
+        private final int pontosMatriz = 1073;
         private final int scale = 10;
-        boolean inGame = false;
-        boolean morto = false;
+        private boolean inGame = false;
+        private boolean morto = false;
 
-        Timer timer;
+        private Timer timer;
         private Snake snake;
-        Fruit fruit;
+        private Fruit fruit;
         private boolean unico = false;
 
         public Snake getSnake() {
@@ -302,6 +282,7 @@ public class Janela {
             }
 
             randomFruit();
+            locateFruit();
 
             Action leftAction = new AbstractAction() {
                 @Override
@@ -402,17 +383,37 @@ public class Janela {
                     unico = true;
 
                     randomFruit();
-                    fruit.locateFruit();
+                    locateFruit();
 
                 }
             } else {
                 gameOver(g);
                 janelaJogo.dispose();
-                int sameSpeed = (int)speedValue.getValue();
-                initJanela();
+               
+                int sameSpeed = (int) speedValue.getValue();
+                initJanela();           
                 speedValue.setValue(sameSpeed);
                 getJanelaJogo().setVisible(true);
             }
+        }
+
+        private int getRandomNumberInRange(int min, int max) {
+            Random r = new Random();
+            return (r.nextInt((max - min) + 1) + min) * 10;
+        }
+
+        private void locateFruit() {
+            int posX = getRandomNumberInRange(0, 36);
+            int posY = getRandomNumberInRange(0, 28);
+            Point pos = new Point(posX, posY);
+
+            for (int z = snake.getBodySize() - 1; z >= 0; z--) {
+                if (pos.x == snake.getBodyPos()[z].x && pos.y == snake.getBodyPos()[z].y) {
+                    locateFruit();
+                    return;
+                }
+            }
+            fruit.setPos(new Point(posX, posY));
         }
 
         private void randomFruit() {
