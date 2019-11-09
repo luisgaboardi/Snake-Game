@@ -1,11 +1,11 @@
 package visual;
 
-import visual.snake;
+import visual.Snake;
 
 import java.awt.*;
 
-public class kitty extends snake{
-    public kitty(int Pontos) {
+public class Kitty extends Snake{
+    public Kitty(int Pontos) {
         super(Pontos);
         cor = new Color(255,153,205);
         score = 0;
