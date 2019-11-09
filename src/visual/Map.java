@@ -7,7 +7,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
-public class map extends JPanel implements ActionListener {
+public class Map extends JPanel implements ActionListener {
 
     private final int B_WIDTH = 300;
     private final int B_HEIGHT = 300;
@@ -53,7 +53,7 @@ public class map extends JPanel implements ActionListener {
         this.dobro = dobro;
     }
 
-    public map(){
+    public Map(){
         setTrueNormal(true);
         setTrueKitty(false);
         setTrueStar(false);
@@ -106,9 +106,9 @@ public class map extends JPanel implements ActionListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        //if(jogando) {
+        if(jogando) {
             doDrawing(g);
-        //}
+        }
     }
 
     public void doDrawing(Graphics g){
