@@ -1,11 +1,7 @@
 package visual;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
-import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
-
-public class snake extends KeyAdapter{
+public class Snake{
 
     protected boolean andandoDireita = true;
     protected boolean andandoEsquerda = false;
@@ -19,7 +15,7 @@ public class snake extends KeyAdapter{
     protected static Color cor;
     protected int score;
 
-    public snake(int Pontos){
+    public Snake(int Pontos){
         tamanhoDaCobra = 5;
         posicaoCorpo = new Point[Pontos];
         posicaoCorpo[0] = (new Point(100,100));
