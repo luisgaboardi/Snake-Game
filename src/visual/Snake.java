@@ -3,7 +3,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
+
 public class snake extends KeyAdapter{
+
     protected boolean andandoDireita = true;
     protected boolean andandoEsquerda = false;
     protected boolean andandoCima = false;
@@ -90,5 +93,37 @@ public class snake extends KeyAdapter{
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public boolean isAndandoDireita() {
+        return andandoDireita;
+    }
+
+    public void setAndandoDireita(boolean andandoDireita) {
+        this.andandoDireita = andandoDireita;
+    }
+
+    public boolean isAndandoEsquerda() {
+        return andandoEsquerda;
+    }
+
+    public void setAndandoEsquerda(boolean andandoEsquerda) {
+        this.andandoEsquerda = andandoEsquerda;
+    }
+
+    public boolean isAndandoCima() {
+        return andandoCima;
+    }
+
+    public void setAndandoCima(boolean andandoCima) {
+        this.andandoCima = andandoCima;
+    }
+
+    public boolean isAndandoBaixo() {
+        return andandoBaixo;
+    }
+
+    public void setAndandoBaixo(boolean andandoBaixo) {
+        this.andandoBaixo = andandoBaixo;
     }
 }

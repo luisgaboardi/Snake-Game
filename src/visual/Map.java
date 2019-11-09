@@ -27,29 +27,29 @@ public class map extends JPanel implements ActionListener {
     private boolean morto = false;
     Timer timer;
 
-    private snake normal;
-    private kitty scape;
-    private star dobro;
+    private Snake normal;
+    private Kitty scape;
+    private Star dobro;
 
     private final int x[] = new int[PontosMatriz];
     private final int y[] = new int[PontosMatriz];
 
-    public snake getSnake(){
+    public Snake getSnake(){
         return normal;
     }
-    public void setSnake(snake snake){
+    public void setSnake(Snake snake){
         this.normal = normal;
     }
 
 
-    public kitty getKitty() {return scape;}
-    public void setKitty(kitty scape) {this.scape = scape;}
+    public Kitty getKitty() {return scape;}
+    public void setKitty(Kitty scape) {this.scape = scape;}
 
-    public star getStar() {
+    public Star getStar() {
         return dobro;
     }
 
-    public void setStar(star dobro) {
+    public void setStar(Star dobro) {
         this.dobro = dobro;
     }
 
@@ -57,30 +57,32 @@ public class map extends JPanel implements ActionListener {
         setTrueNormal(true);
         setTrueKitty(false);
         setTrueStar(false);
-        addKeyListener(new comandos());
+        addKeyListener(new TAdapter());
+
         setBackground(Color.black);
-        setPreferredSize(new Dimension(B_WIDTH,B_HEIGHT));
         setFocusable(true);
+
+        setPreferredSize(new Dimension(B_WIDTH,B_HEIGHT));
         iniciarJogo();
     }
 
     private void iniciarJogo(){
             if(trueNormal == true){
-                this.normal = new snake(PontosMatriz);
+                this.normal = new Snake(PontosMatriz);
                 for(int z = 0; z < normal.getTamanhoDaCobra();z++){
                     normal.getPosicaoCorpo()[z].x = 100-z*escala;
                     normal.getPosicaoCorpo()[z].y = 100;
                 }
             }
             else if(trueKitty == true){
-                this.scape = new kitty(PontosMatriz);
+                this.scape = new Kitty(PontosMatriz);
                 for(int z = 0; z < scape.getTamanhoDaCobra();z++){
                     scape.getPosicaoCorpo()[z].x = 100-z*escala;
                     scape.getPosicaoCorpo()[z].y = 100;
                 }
             }
             else if(trueStar == true){
-                this.dobro = new star(PontosMatriz);
+                this.dobro = new Star(PontosMatriz);
                 for(int z = 0; z < dobro.getTamanhoDaCobra();z++){
                     dobro.getPosicaoCorpo()[z].x = 100-z*escala;
                     dobro.getPosicaoCorpo()[z].y = 100;
@@ -104,13 +106,17 @@ public class map extends JPanel implements ActionListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(jogando == true) {
-            g.setColor(snake.getCor());
-            for (int z = normal.getTamanhoDaCobra() - 1; z > 0; --z) {
-                int posX = (int) normal.getPosicaoCorpo()[z].getX();
-                int posY = (int) normal.getPosicaoCorpo()[z].getY();
-                g.fillRect(posX, posY, escala, escala);
-            }
+        //if(jogando) {
+            doDrawing(g);
+        //}
+    }
+
+    public void doDrawing(Graphics g){
+        g.setColor(Snake.getCor());
+        for (int z = normal.getTamanhoDaCobra() - 1; z > 0; --z) {
+            int posX = (int) normal.getPosicaoCorpo()[z].getX();
+            int posY = (int) normal.getPosicaoCorpo()[z].getY();
+            g.fillRect(posX, posY, escala, escala);
         }
         Toolkit.getDefaultToolkit().sync();
     }
@@ -122,6 +128,39 @@ public class map extends JPanel implements ActionListener {
             normal.move();
         }
         repaint();
+    }
+
+    private class TAdapter extends KeyAdapter{
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+
+            int key = e.getKeyCode();
+
+            if ((key == KeyEvent.VK_LEFT) && (!normal.isAndandoDireita())) {
+                normal.setAndandoEsquerda(true);
+                normal.setAndandoCima(false);
+                normal.setAndandoBaixo(false);
+            }
+
+            if ((key == KeyEvent.VK_RIGHT) && (!normal.isAndandoEsquerda())) {
+                normal.setAndandoDireita(true);
+                normal.setAndandoCima(false);
+                normal.setAndandoBaixo(false);
+            }
+
+            if ((key == KeyEvent.VK_UP) && (!normal.isAndandoBaixo())) {
+                normal.setAndandoCima(true);
+                normal.setAndandoDireita(false);
+                normal.setAndandoEsquerda(false);
+            }
+
+            if ((key == KeyEvent.VK_DOWN) && (!normal.isAndandoCima())) {
+                normal.setAndandoBaixo(true);
+                normal.setAndandoDireita(false);
+                normal.setAndandoEsquerda(false);
+            }
+        }
     }
 
     public boolean isTrueNormal() {

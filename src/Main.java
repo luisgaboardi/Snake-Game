@@ -1,10 +1,10 @@
 import visual.Tela;
-import visual.map;
+import visual.Map;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class main {
+public class Main {
     public static void main(String[] args){
         EventQueue.invokeLater(()->{
             try{
