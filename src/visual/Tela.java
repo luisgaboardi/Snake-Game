@@ -13,7 +13,7 @@ public class Tela {
     private final int posX = 600;
     private final int posY = 250;
     private JFrame janelaJogo;
-    protected visual.map mapa;
+    protected visual.Map mapa;
 
     public JFrame getJanelaJogo() {
         return janelaJogo;
@@ -37,7 +37,7 @@ public class Tela {
         final JLayeredPane localBotoes = new JLayeredPane();
         localBotoes.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 
-        mapa = new visual.map();
+        mapa = new visual.Map();
 
         GroupLayout contJanela = new GroupLayout(janelaJogo.getContentPane());
         contJanela.setHorizontalGroup(
@@ -118,7 +118,7 @@ public class Tela {
                 mapa.setTrueKitty(false);
                 mapa.setTrueNormal(true);
                 mapa.getSnake().setScore(0);
-                mapa.setSnake(new snake(mapa.getPontosMatriz()));
+                mapa.setSnake(new Snake(mapa.getPontosMatriz()));
                 janelaJogo.repaint();
 
             }
@@ -133,7 +133,7 @@ public class Tela {
                 mapa.setTrueKitty(true);
                 mapa.setTrueNormal(false);
                 mapa.getSnake().setScore(0);
-                mapa.setKitty(new kitty(mapa.getPontosMatriz()));
+                mapa.setKitty(new Kitty(mapa.getPontosMatriz()));
                 janelaJogo.repaint();
             }
         });
@@ -147,7 +147,7 @@ public class Tela {
                 mapa.setTrueKitty(false);
                 mapa.setTrueNormal(false);
                 mapa.getSnake().setScore(0);
-                mapa.setStar(new star(mapa.getPontosMatriz()));
+                mapa.setStar(new Star(mapa.getPontosMatriz()));
                 janelaJogo.repaint();
             }
         });
@@ -177,6 +177,7 @@ public class Tela {
             @Override
             public void mouseClicked(MouseEvent arg0) {
                 if("START".equals(start.getText())) {
+                    mapa.requestFocus();
                     start.setText("PAUSE");
                     spinner.setEnabled(false);
                     menuCobras.setEnabled(false);
