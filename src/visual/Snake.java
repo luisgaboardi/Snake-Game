@@ -15,6 +15,8 @@ public class Snake{
     protected static Color cor;
     protected int score;
 
+    protected boolean houveColisao;
+
     public Snake(int Pontos){
         tamanhoDaCobra = 5;
         posicaoCorpo = new Point[Pontos];
@@ -23,6 +25,7 @@ public class Snake{
         posicaoCorpo[2] = (new Point(80,100));
         posicaoCorpo[3] = (new Point(70,100));
         posicaoCorpo[4] = (new Point(60,100));
+        setHouveColisao(false);
         velocidade = 5;
         cor = new Color(255,255,255);
         score = 0;
@@ -45,6 +48,27 @@ public class Snake{
         if(andandoCima){
             posicaoCorpo[0].y -= escala;
         }
+    }
+
+    protected boolean verColisao() {
+        for (int z = getTamanhoDaCobra()-1; z > 0; z--) {
+            if ((getPosicaoCorpo()[0].x == getPosicaoCorpo()[z].x) && (getPosicaoCorpo()[0].y == getPosicaoCorpo()[z].y)) {
+                setHouveColisao(true);
+            }
+            if(getPosicaoCorpo()[0].x < 0){
+                setHouveColisao(true);
+            }
+            if(getPosicaoCorpo()[0].x >= 380){
+                setHouveColisao(true);
+            }
+            if(getPosicaoCorpo()[0].y < 0){
+                setHouveColisao(true);
+            }
+            if(getPosicaoCorpo()[0].y >= 280){
+                setHouveColisao(true);
+            }
+        }
+        return houveColisao;
     }
 
     public int getTamanhoDaCobra() {
@@ -121,5 +145,13 @@ public class Snake{
 
     public void setAndandoBaixo(boolean andandoBaixo) {
         this.andandoBaixo = andandoBaixo;
+    }
+
+    public boolean getHouveColisao() {
+        return houveColisao;
+    }
+
+    public void setHouveColisao(boolean houveColisao) {
+        this.houveColisao = houveColisao;
     }
 }
