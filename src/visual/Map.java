@@ -125,9 +125,24 @@ public class Map extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (jogando) {
+            verColisao();
             normal.move();
         }
         repaint();
+    }
+
+    public void verColisao(){
+        for(int z = escala; z > 0; z--){
+            if(z > 4 && (normal.getPosicaoCorpo()[0].x == normal.getPosicaoCorpo()[z].x) && (normal.getPosicaoCorpo()[0].y == normal.getPosicaoCorpo()[z].y)){
+                jogando = false;
+            }
+        }
+        if(normal.getPosicaoCorpo()[0].y >= B_HEIGHT || normal.getPosicaoCorpo()[0].y < 0 || normal.getPosicaoCorpo()[0].x >= B_WIDTH || normal.getPosicaoCorpo()[0].x < 0){
+            jogando = false;
+        }
+        if(!jogando){
+            timer.stop();
+        }
     }
 
     private class TAdapter extends KeyAdapter{
