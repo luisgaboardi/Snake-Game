@@ -27,31 +27,15 @@ public class Map extends JPanel implements ActionListener {
     private boolean morto = false;
     Timer timer;
 
+    private Fruta maca;
     private Snake normal;
     private Kitty scape;
     private Star dobro;
 
+    private int posXMaca;
+    private int posYMaca;
     private final int x[] = new int[PontosMatriz];
     private final int y[] = new int[PontosMatriz];
-
-    public Snake getSnake(){
-        return normal;
-    }
-    public void setSnake(Snake snake){
-        this.normal = normal;
-    }
-
-
-    public Kitty getKitty() {return scape;}
-    public void setKitty(Kitty scape) {this.scape = scape;}
-
-    public Star getStar() {
-        return dobro;
-    }
-
-    public void setStar(Star dobro) {
-        this.dobro = dobro;
-    }
 
     public Map(){
         setTrueNormal(true);
@@ -88,7 +72,7 @@ public class Map extends JPanel implements ActionListener {
                     dobro.getPosicaoCorpo()[z].y = 100;
                 }
             }
-
+            maca = new Fruta();
             timer = new Timer(DELAY,this);
             timer.start();
             repaint();
@@ -116,6 +100,10 @@ public class Map extends JPanel implements ActionListener {
     }
 
     public void doDrawing(Graphics g){
+        g.setColor(Fruta.getCor());
+        posXMaca = (int) maca.getPosX();
+        posYMaca = (int) maca.getPosY();
+        g.fillRect(posXMaca,posYMaca,escala,escala);
         g.setColor(Snake.getCor());
         for (int z = normal.getTamanhoDaCobra() - 1; z > 0; --z) {
             int posX = (int) normal.getPosicaoCorpo()[z].getX();
@@ -139,14 +127,21 @@ public class Map extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (jogando) {
+            comeuFruta();
             colisao();
             normal.move();
         }
         repaint();
     }
 
+    public void comeuFruta(){
+        if(normal.posicaoCorpo[0].x == posXMaca && normal.posicaoCorpo[0].y == posYMaca){
+            normal.crescerCobra();
+            maca.gerarFruta();
+        }
+    }
+
     public void colisao(){
-        System.out.println(normal.getHouveColisao()+" "+jogando);
         if(normal.verColisao()){
             jogando = false;
             morto = true;
@@ -227,5 +222,24 @@ public class Map extends JPanel implements ActionListener {
 
     public void setMorto(boolean morto) {
         this.morto = morto;
+    }
+
+    public Snake getSnake(){
+        return normal;
+    }
+    public void setSnake(Snake snake){
+        this.normal = normal;
+    }
+
+
+    public Kitty getKitty() {return scape;}
+    public void setKitty(Kitty scape) {this.scape = scape;}
+
+    public Star getStar() {
+        return dobro;
+    }
+
+    public void setStar(Star dobro) {
+        this.dobro = dobro;
     }
 }
