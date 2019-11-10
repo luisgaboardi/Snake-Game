@@ -9,18 +9,15 @@ import java.awt.event.KeyEvent;
 @SuppressWarnings("serial")
 public class Map extends JPanel implements ActionListener {
 
-    private final int B_WIDTH = 380;
+    private final int B_WIDTH = 370;
     private final int B_HEIGHT = 280;
     private final int escala = 10;
     private boolean trueNormal;
     private boolean trueKitty;
     private boolean trueStar;
+    //private boolean trueBig;
 
-    public int getPontosMatriz() {
-        return PontosMatriz;
-    }
-
-    private final int PontosMatriz = 900;
+    private final int PontosMatriz = 1036;
     private final int DELAY = 100;
 
     private boolean jogando = false;
@@ -28,12 +25,16 @@ public class Map extends JPanel implements ActionListener {
     Timer timer;
 
     private Fruta maca;
+    private Big macaGrande;
     private Snake normal;
     private Kitty scape;
     private Star dobro;
 
     private int posXMaca;
     private int posYMaca;
+    private int posXMacaG;
+    private int posYMacaG;
+    private int contadorFrutas = 0;
     private final int x[] = new int[PontosMatriz];
     private final int y[] = new int[PontosMatriz];
 
@@ -72,6 +73,7 @@ public class Map extends JPanel implements ActionListener {
                     dobro.getPosicaoCorpo()[z].y = 100;
                 }
             }
+            macaGrande = new Big();
             maca = new Fruta();
             timer = new Timer(DELAY,this);
             timer.start();
@@ -100,10 +102,20 @@ public class Map extends JPanel implements ActionListener {
     }
 
     public void doDrawing(Graphics g){
-        g.setColor(Fruta.getCor());
+        if(contadorFrutas%10 == 0 && contadorFrutas!=0) {
+            g.setColor(Big.getCor2());
+            posXMacaG = (int) macaGrande.getPosX();
+            posYMacaG = (int) macaGrande.getPosY();
+            g.fillRect(posXMacaG, posYMacaG, escala, escala);
+            g.fillRect(posXMacaG-1, posYMacaG, escala, escala);
+            g.fillRect(posXMacaG, posYMacaG-1, escala, escala);
+            g.fillRect(posXMacaG-1, posYMacaG-1, escala, escala);
+        }
+        g.setColor(Fruta.getCor1());
         posXMaca = (int) maca.getPosX();
         posYMaca = (int) maca.getPosY();
         g.fillRect(posXMaca,posYMaca,escala,escala);
+
         g.setColor(Snake.getCor());
         for (int z = normal.getTamanhoDaCobra() - 1; z > 0; --z) {
             int posX = (int) normal.getPosicaoCorpo()[z].getX();
@@ -114,6 +126,7 @@ public class Map extends JPanel implements ActionListener {
     }
 
     public void doGameOver(Graphics g){
+        System.out.println(normal.getScore());
         String msg = "Game Over";
         Font big = new Font("Helvetica", Font.BOLD, 25);
         FontMetrics metr = getFontMetrics(big);
@@ -127,6 +140,7 @@ public class Map extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (jogando) {
+            comeuFrutaBig();
             comeuFruta();
             colisao();
             normal.move();
@@ -138,6 +152,16 @@ public class Map extends JPanel implements ActionListener {
         if(normal.posicaoCorpo[0].x == posXMaca && normal.posicaoCorpo[0].y == posYMaca){
             normal.crescerCobra();
             maca.gerarFruta();
+            contadorFrutas++;
+        }
+    }
+
+    public void comeuFrutaBig(){
+        if(normal.posicaoCorpo[0].x == posXMacaG && normal.posicaoCorpo[0].y == posYMacaG){
+            normal.setScore(normal.getScore()+10);
+            normal.crescerCobra();
+            macaGrande.gerarFruta();
+            contadorFrutas++;
         }
     }
 
@@ -241,5 +265,9 @@ public class Map extends JPanel implements ActionListener {
 
     public void setStar(Star dobro) {
         this.dobro = dobro;
+    }
+
+    public int getPontosMatriz() {
+        return PontosMatriz;
     }
 }
