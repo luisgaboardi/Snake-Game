@@ -55,20 +55,36 @@ public class Snake{
             if ((getPosicaoCorpo()[0].x == getPosicaoCorpo()[z].x) && (getPosicaoCorpo()[0].y == getPosicaoCorpo()[z].y)) {
                 setHouveColisao(true);
             }
-            if(getPosicaoCorpo()[0].x < 0){
-                setHouveColisao(true);
-            }
-            if(getPosicaoCorpo()[0].x >= 380){
-                setHouveColisao(true);
-            }
-            if(getPosicaoCorpo()[0].y < 0){
-                setHouveColisao(true);
-            }
-            if(getPosicaoCorpo()[0].y >= 280){
-                setHouveColisao(true);
-            }
+        }
+        if(getPosicaoCorpo()[0].x < 0){
+            setHouveColisao(true);
+        }
+        if(getPosicaoCorpo()[0].x >= 380){
+            setHouveColisao(true);
+        }
+        if(getPosicaoCorpo()[0].y < 0){
+            setHouveColisao(true);
+        }
+        if(getPosicaoCorpo()[0].y >= 280){
+            setHouveColisao(true);
         }
         return houveColisao;
+    }
+
+    public void crescerCobra(){
+        tamanhoDaCobra++;
+        if(andandoDireita){
+            posicaoCorpo[tamanhoDaCobra-1] = (new Point(posicaoCorpo[tamanhoDaCobra-2].x-10,posicaoCorpo[tamanhoDaCobra-2].y));
+        }
+        if(andandoEsquerda){
+            posicaoCorpo[tamanhoDaCobra-1] = (new Point(posicaoCorpo[tamanhoDaCobra-2].x+10,posicaoCorpo[tamanhoDaCobra-2].y));
+        }
+        if(andandoCima){
+            posicaoCorpo[tamanhoDaCobra-1] = (new Point(posicaoCorpo[tamanhoDaCobra-2].x,posicaoCorpo[tamanhoDaCobra-2].y-10));
+        }
+        if(andandoBaixo){
+            posicaoCorpo[tamanhoDaCobra-1] = (new Point(posicaoCorpo[tamanhoDaCobra-2].x,posicaoCorpo[tamanhoDaCobra-2].y+10));
+        }
     }
 
     public int getTamanhoDaCobra() {
