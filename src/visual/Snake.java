@@ -26,7 +26,6 @@ public class Snake{
         posicaoCorpo[3] = (new Point(70,100));
         posicaoCorpo[4] = (new Point(60,100));
         setHouveColisao(false);
-        velocidade = 5;
         cor = new Color(255,255,255);
         score = 0;
     }
@@ -85,6 +84,7 @@ public class Snake{
         if(andandoBaixo){
             posicaoCorpo[tamanhoDaCobra-1] = (new Point(posicaoCorpo[tamanhoDaCobra-2].x,posicaoCorpo[tamanhoDaCobra-2].y+10));
         }
+        score+=10;
     }
 
     public int getTamanhoDaCobra() {
