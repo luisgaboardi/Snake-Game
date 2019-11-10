@@ -57,7 +57,7 @@ public class Tela {
                         .addGroup(contJanela.createSequentialGroup()
                                 .addComponent(localScore, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
                                 .addGap(10)
-                                .addComponent(mapa, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                                .addComponent(mapa, GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                                 .addGap(14)
                                 .addComponent(localBotoes, GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
                                 .addGap(10))
