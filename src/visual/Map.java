@@ -9,8 +9,8 @@ import java.awt.event.KeyEvent;
 @SuppressWarnings("serial")
 public class Map extends JPanel implements ActionListener {
 
-    private final int B_WIDTH = 300;
-    private final int B_HEIGHT = 300;
+    private final int B_WIDTH = 380;
+    private final int B_HEIGHT = 280;
     private final int escala = 10;
     private boolean trueNormal;
     private boolean trueKitty;
@@ -109,6 +109,10 @@ public class Map extends JPanel implements ActionListener {
         if(jogando) {
             doDrawing(g);
         }
+
+        if(jogando == false && morto == true){
+            doGameOver(g);
+        }
     }
 
     public void doDrawing(Graphics g){
@@ -121,24 +125,31 @@ public class Map extends JPanel implements ActionListener {
         Toolkit.getDefaultToolkit().sync();
     }
 
+    public void doGameOver(Graphics g){
+        String msg = "Game Over";
+        Font big = new Font("Helvetica", Font.BOLD, 25);
+        FontMetrics metr = getFontMetrics(big);
+
+        g.setColor(Color.white);
+        g.setFont(big);
+        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if (jogando) {
-            verColisao();
+            colisao();
             normal.move();
         }
         repaint();
     }
 
-    public void verColisao(){
-        for(int z = escala; z > 0; z--){
-            if(z > 4 && (normal.getPosicaoCorpo()[0].x == normal.getPosicaoCorpo()[z].x) && (normal.getPosicaoCorpo()[0].y == normal.getPosicaoCorpo()[z].y)){
-                jogando = false;
-            }
-        }
-        if(normal.getPosicaoCorpo()[0].y >= B_HEIGHT || normal.getPosicaoCorpo()[0].y < 0 || normal.getPosicaoCorpo()[0].x >= B_WIDTH || normal.getPosicaoCorpo()[0].x < 0){
+    public void colisao(){
+        System.out.println(normal.getHouveColisao()+" "+jogando);
+        if(normal.verColisao()){
             jogando = false;
+            morto = true;
         }
         if(!jogando){
             timer.stop();
