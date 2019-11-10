@@ -9,11 +9,12 @@ Tem as seguintes funionalidades:
 - Implementada as snakes **Comum**, **Star** e **Kitty**
 - Implementada opção de escolher com qual snake jogar no início do jogo
 - Implementado movimento da cobra
-- Implementado cobras atravessarem as bordas e aparecerem no lado oposto (Com exceção da Star)
+- Implementado cobras atravessarem as bordas e aparecerem no lado oposto (Com exceção da Kitty)
 - Implementado as frutas **Simples**, **Bomb**, **Big** e **Decrease**
 - Implementado aparecer uma fruta por vez em posição aleatória
 - Implementado pontuação relativa à velocidade da cobra
 - Implementado a opção de pausar
+- Implementado Thread no Game Loop
 
 # EP2 - OO 2019.2 (UnB - Gama)
 
