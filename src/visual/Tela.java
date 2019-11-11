@@ -152,22 +152,6 @@ public class Tela {
             }
         });
 
-        final JMenu menuFrutas = new JMenu("Fruitas");
-        menuBar.add(menuFrutas);
-
-        JRadioButtonMenuItem frutaSimples = new JRadioButtonMenuItem("Simples");
-        frutaSimples.setSelected(true);
-        menuFrutas.add(frutaSimples);
-
-        JRadioButtonMenuItem frutaBomba = new JRadioButtonMenuItem("Bomba");
-        menuFrutas.add(frutaBomba);
-
-        JRadioButtonMenuItem frutaGrande = new JRadioButtonMenuItem("Grande");
-        menuFrutas.add(frutaGrande);
-
-        JRadioButtonMenuItem decremento = new JRadioButtonMenuItem("Decremento");
-        menuFrutas.add(decremento);
-
         final JButton start = new JButton("START");
         start.setFont(new Font("Helvetica", Font.BOLD, 16));
         start.setBounds(125, 7, 110, 35);
@@ -181,7 +165,6 @@ public class Tela {
                     start.setText("PAUSE");
                     spinner.setEnabled(false);
                     menuCobras.setEnabled(false);
-                    menuFrutas.setEnabled(false);
                     mapa.setEnabled(true);
                     mapa.setJogando(true);
                 } else if("PAUSE".equals(start.getText())) {
@@ -189,7 +172,6 @@ public class Tela {
                     mapa.setEnabled(false);
                     spinner.setEnabled(true);
                     menuCobras.setEnabled(true);
-                    menuFrutas.setEnabled(true);
                     mapa.setJogando(false);
                 }
             }
