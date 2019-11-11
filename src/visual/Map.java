@@ -24,6 +24,7 @@ public class Map extends JPanel implements ActionListener {
     private boolean morto = false;
     Timer timer;
 
+    private Obstaculo problema;
     private Fruta maca;
     private Big macaGrande;
     private Snake normal;
@@ -73,6 +74,7 @@ public class Map extends JPanel implements ActionListener {
                     dobro.getPosicaoCorpo()[z].y = 100;
                 }
             }
+            problema = new Obstaculo();
             macaGrande = new Big();
             maca = new Fruta();
             timer = new Timer(DELAY,this);
@@ -107,10 +109,12 @@ public class Map extends JPanel implements ActionListener {
             posXMacaG = (int) macaGrande.getPosX();
             posYMacaG = (int) macaGrande.getPosY();
             g.fillRect(posXMacaG, posYMacaG, escala, escala);
-            g.fillRect(posXMacaG-1, posYMacaG, escala, escala);
-            g.fillRect(posXMacaG, posYMacaG-1, escala, escala);
-            g.fillRect(posXMacaG-1, posYMacaG-1, escala, escala);
         }
+        g.setColor(Obstaculo.getCor());
+        int posXObstaculo = (int) problema.getPosX();
+        int posYObstaculo = (int) problema.getPosY();
+        g.fillRect(posXObstaculo,posYObstaculo,escala,escala);
+
         g.setColor(Fruta.getCor1());
         posXMaca = (int) maca.getPosX();
         posYMaca = (int) maca.getPosY();
@@ -152,6 +156,7 @@ public class Map extends JPanel implements ActionListener {
         if(normal.posicaoCorpo[0].x == posXMaca && normal.posicaoCorpo[0].y == posYMaca){
             normal.crescerCobra();
             maca.gerarFruta();
+            problema.gerarObstaculo();
             contadorFrutas++;
         }
     }
@@ -161,12 +166,17 @@ public class Map extends JPanel implements ActionListener {
             normal.setScore(normal.getScore()+10);
             normal.crescerCobra();
             macaGrande.gerarFruta();
+            problema.gerarObstaculo();
             contadorFrutas++;
         }
     }
 
     public void colisao(){
         if(normal.verColisao()){
+            jogando = false;
+            morto = true;
+        }
+        if(normal.getPosicaoCorpo()[0].x == problema.getPosX() && normal.getPosicaoCorpo()[0].y == problema.getPosY() && !trueKitty){
             jogando = false;
             morto = true;
         }
