@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -169,7 +168,7 @@ public class Window extends JFrame {
                     grid.getSnake().snakeType[1] = false;
                     grid.getSnake().snakeType[2] = false;
                     grid.getSnake().setScore(0);
-                    grid.setSnake(new Snake(grid.pontosMatriz));
+                    grid.setSnake(new Snake(grid.nPoints));
                     grid.repaint();
                 }
             }
@@ -186,7 +185,7 @@ public class Window extends JFrame {
                     grid.getSnake().snakeType[0] = false;
                     grid.getSnake().snakeType[2] = false;
                     grid.getSnake().score = 0;
-                    grid.setSnake(new Star(grid.pontosMatriz));
+                    grid.setSnake(new Star(grid.nPoints));
                     grid.repaint();
                 }
             }
@@ -203,7 +202,7 @@ public class Window extends JFrame {
                     grid.getSnake().snakeType[0] = false;
                     grid.getSnake().snakeType[1] = false;
                     grid.getSnake().score = 0;
-                    grid.setSnake(new Kitty(grid.pontosMatriz));
+                    grid.setSnake(new Kitty(grid.nPoints));
                     grid.repaint();
                 }
             }
@@ -224,12 +223,14 @@ public class Window extends JFrame {
                     speedValue.setEnabled(false);
                     menuSnake.setEnabled(false);
 
-                    grid.thread.start();
+                    grid.gameLoop.start();
+                    grid.fruitTimer.start();
                     grid.setEnabled(true);
+
                     grid.inGame = true;
                     repaint();
 
-                } else if ("PAUSE".equals(btnPlay.getText())) {
+                } else if ("STOP".equals(btnPlay.getText())) {
 
                     btnPlay.setText("PLAY");
 
@@ -245,22 +246,22 @@ public class Window extends JFrame {
     }
 
     protected int speedFormula(int x) {
-        return 1 * x * x - 17 * x + 140;
+        return x * x - 17 * x + 140;
     }
 
     public class Grid extends JPanel implements KeyListener, Runnable {
 
         private final int width = 370;
         private final int height = 290;
-        private final int pontosMatriz = 1073;
-        private final int scale = 10;
+        private final int nPoints = 1073;
+        private final int scale = 8;
         private boolean inGame = false;
-        private boolean morto = false;
-        private boolean fruitOnScreen = false;
 
-        private Thread thread;
+        private Thread gameLoop;
+        private Thread fruitTimer;
         private Snake snake;
         private Fruit fruit;
+        private Barriers barrier;
 
         public Snake getSnake() {
             return snake;
@@ -268,41 +269,6 @@ public class Window extends JFrame {
 
         public void setSnake(Snake snake) {
             this.snake = snake;
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            int k = e.getKeyCode();
-
-            if (k == KeyEvent.VK_UP && !snake.downDirection) {
-                snake.upDirection = true;
-                snake.downDirection = false;
-                snake.rightDirection = false;
-                snake.leftDirection = false;
-            } else if (k == KeyEvent.VK_DOWN && !snake.upDirection) {
-                snake.upDirection = false;
-                snake.downDirection = true;
-                snake.rightDirection = false;
-                snake.leftDirection = false;
-            } else if (k == KeyEvent.VK_LEFT && !snake.rightDirection) {
-                snake.upDirection = false;
-                snake.downDirection = false;
-                snake.rightDirection = false;
-                snake.leftDirection = true;
-            } else if (k == KeyEvent.VK_RIGHT && !snake.leftDirection) {
-                snake.upDirection = false;
-                snake.downDirection = false;
-                snake.rightDirection = true;
-                snake.leftDirection = false;
-            }
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-        }
-
-        @Override
-        public void keyTyped(KeyEvent e) {
         }
 
         public Grid() {
@@ -316,79 +282,19 @@ public class Window extends JFrame {
 
         private void initGame() {
 
-            thread = new Thread(this);
+            snake = new Snake(nPoints);
 
-            this.snake = new Snake(pontosMatriz);
+            fruit = selectRandomFruit();
+            fruit.newPos(grid, snake);
+            fruitTimer = new Thread(new FruitTimer());
 
-            for (int z = 0; z < snake.getBodySize(); z++) {
-                snake.getBodyPos()[z].x = 100 - z * scale;
-                snake.getBodyPos()[z].y = 100;
-            }
+            barrier = new Barriers();
 
-            selectRandomFruit();
-            fruitNewPos();
-            fruitOnScreen = true;
+            gameLoop = new Thread(this);
 
         }
 
-        @Override
-        public void paintComponent(Graphics g) {
-            super.paintComponent(g);
-
-            if ("PLAY".equals(btnPlay.getText())) {
-                gameStart(g);
-            }
-
-            if (!morto) {
-                g.setColor(snake.getColor());
-
-                for (int z = snake.getBodySize() - 1; z > 0; --z) {
-                    int posX = (int) snake.getBodyPos()[z].getX();
-                    int posY = (int) snake.getBodyPos()[z].getY();
-                    g.fillRect(posX + 2, posY + 2, scale - 2, scale - 2);
-                }
-
-                g.setColor(fruit.getColor());
-                g.fillRect(fruit.getPos().x + 2, fruit.getPos().y + 2, scale - 2, scale - 2);
-
-                Toolkit.getDefaultToolkit().sync();
-
-                if (!fruitOnScreen && !morto) {
-                    selectRandomFruit();
-                    fruitNewPos();
-
-                    fruitOnScreen = true;
-
-                }
-            } else {
-                gameOver(g);
-                Window.this.dispose();
-                int sameSpeed = (int) speedValue.getValue();
-                speedValue.setValue(sameSpeed);
-                new Window().speedValue.setValue(sameSpeed);
-            }
-        }
-
-        private int getRandomNumberInRange(int min, int max) {
-            Random r = new Random();
-            return (r.nextInt((max - min) + 1) + min) * 10;
-        }
-
-        private void fruitNewPos() {
-            int posX = getRandomNumberInRange(0, 36);
-            int posY = getRandomNumberInRange(0, 28);
-            Point pos = new Point(posX, posY);
-
-            for (int z = snake.getBodySize() - 1; z >= 0; z--) {
-                if (pos.x == snake.getBodyPos()[z].x && pos.y == snake.getBodyPos()[z].y) {
-                    fruitNewPos();
-                    return;
-                }
-            }
-            fruit.setPos(new Point(posX, posY));
-        }
-
-        private void selectRandomFruit() {
+        protected Fruit selectRandomFruit() {
 
             Random r = new Random();
             int randomFruit = r.nextInt(101);
@@ -403,31 +309,65 @@ public class Window extends JFrame {
                 fruit.setScoreValue(2 * snake.getSpeed());
             } else if (randomFruit < 10) {
                 fruit = new Decrease();
-                fruitNewPos();
+            }
+
+            return fruit;
+        }
+
+        @Override
+        public void run() {
+            System.out.println("");
+            while (inGame && !snake.dead) {
+                snake.dead = snake.checkCollision();
+                if (fruit.checkAppleEaten(snake)) {
+                    score.setText(Integer.toString(snake.getScore()));
+                }
+                snake.move();
+                repaint();
+
+                try {
+                    Thread.sleep(speedFormula(snake.getSpeed()));
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
         }
 
-        private boolean checkAppleEaten() {
+        @Override
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
 
-            if ((snake.getBodyPos()[0].x == fruit.getPos().x) && (snake.getBodyPos()[0].y == fruit.getPos().y)) {
-
-                if (fruit instanceof Bomb) {
-                    morto = true;
-                } else if (fruit instanceof Decrease) {
-                    snake.setBodySize(5);
-                    fruitOnScreen = false;
-                } else {
-                    fruitOnScreen = snake.addPart();
-                    if (snake instanceof Star) {
-                        fruit.setScoreValue(2 * fruit.getScoreValue());
-                    }
-                    snake.setScore(snake.getScore() + fruit.getScoreValue());
-
-                }
-
-                return true;
+            if ("PLAY".equals(btnPlay.getText())) {
+                gameStart(g);
             }
-            return false;
+
+            barrier.paintComponent(g);
+
+            if (!snake.dead) {
+
+                g.setColor(snake.getColor());
+                for (int z = snake.getBodySize() - 1; z > 0; --z) {
+                    int posX = (int) snake.getBodyPos()[z].getX();
+                    int posY = (int) snake.getBodyPos()[z].getY();
+                    g.fillRect(posX + 2, posY + 2, scale, scale);
+                }
+                if(!fruit.onScreen) {
+                    fruit = grid.selectRandomFruit();          
+                    fruit.newPos(grid, snake);
+                }
+                g.setColor(fruit.getColor());
+                g.fillRect(fruit.getPos().x + 2, fruit.getPos().y + 2, scale, scale);
+
+                Toolkit.getDefaultToolkit().sync();
+
+            } else {
+                gameOver(g);
+//                Window.this.dispose();
+//                int sameSpeed = (int) speedValue.getValue();
+//                speedValue.setValue(sameSpeed);
+//                new Window().speedValue.setValue(sameSpeed);
+            }
         }
 
         private void gameStart(Graphics g) {
@@ -458,22 +398,75 @@ public class Window extends JFrame {
         }
 
         @Override
-        public void run() {
-            while (inGame && !morto) {
-                morto = snake.checkCollision();
-                if (checkAppleEaten()) {
-                    Window.this.score.setText(Integer.toString(snake.getScore()));
-                }
-                snake.move();
-                repaint();
+        public void keyPressed(KeyEvent e) {
+            int k = e.getKeyCode();
 
-                try {
-                    Thread.sleep(speedFormula(snake.getSpeed()));
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
+            if (k == KeyEvent.VK_UP && !snake.downDirection) {
+                snake.upDirection = true;
+                snake.downDirection = false;
+                snake.rightDirection = false;
+                snake.leftDirection = false;
+            } else if (k == KeyEvent.VK_DOWN && !snake.upDirection) {
+                snake.upDirection = false;
+                snake.downDirection = true;
+                snake.rightDirection = false;
+                snake.leftDirection = false;
+            } else if (k == KeyEvent.VK_LEFT && !snake.rightDirection) {
+                snake.upDirection = false;
+                snake.downDirection = false;
+                snake.rightDirection = false;
+                snake.leftDirection = true;
+            } else if (k == KeyEvent.VK_RIGHT && !snake.leftDirection) {
+                snake.upDirection = false;
+                snake.downDirection = false;
+                snake.rightDirection = true;
+                snake.leftDirection = false;
             }
+        }
+
+        public class FruitTimer extends JPanel implements Runnable {
+
+            private int time;
+
+            @Override
+            public void run() {
+                fruitLoop();
+            }
+
+            public void fruitLoop() {
+                while (inGame && !snake.dead) {
+                    
+                    fruit = grid.selectRandomFruit();
+
+                    if (fruit instanceof Decrease) {
+                        time = 3000;
+                    } else if (fruit instanceof Bomb) {
+                        time = 6000;
+                    } else if (fruit instanceof Big) {
+                        time = 4000;
+                    } else if (fruit instanceof Fruit) {
+                        time = 6000;
+                    }
+                    
+                    fruit.newPos(grid, snake);
+                    grid.repaint(); // Curioso
+
+                    try {
+                        Thread.sleep(time);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(FruitTimer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
         }
 
     }

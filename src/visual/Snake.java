@@ -11,6 +11,7 @@ public class Snake {
     private int speed;
     private Color color;
     int score;
+    protected boolean dead;
     protected boolean snakeType[] = new boolean[3];
 
     protected boolean upDirection = false;
@@ -21,14 +22,15 @@ public class Snake {
     public Snake(int pontos) {
         bodySize = 5;
         bodyPos = new Point[pontos];
-        bodyPos[0] = (new Point(100, 100));
-        bodyPos[1] = (new Point(90, 100));
-        bodyPos[2] = (new Point(80, 100));
-        bodyPos[3] = (new Point(70, 100));
-        bodyPos[4] = (new Point(60, 100));
+        bodyPos[0] = (new Point(130, 100));
+        bodyPos[1] = (new Point(120, 100));
+        bodyPos[2] = (new Point(110, 100));
+        bodyPos[3] = (new Point(100, 100));
+        bodyPos[4] = (new Point(90, 100));
         speed = 5;
         color = new Color(255, 255, 255);
         score = 0;
+        dead = false;
 
         snakeType[0] = true;
         snakeType[1] = false;
