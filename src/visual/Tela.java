@@ -69,32 +69,17 @@ public class Tela {
         textoScore.setBackground(Color.DARK_GRAY);
         textoScore.setForeground(Color.WHITE);
         localScore.setLayer(textoScore, 0);
-        textoScore.setText("Score:");
-        textoScore.setBounds(10, 8, 70, 22);
+        textoScore.setText("High Score:");
+        textoScore.setBounds(10, 8, 140, 22);
         localScore.add(textoScore);
 
         JTextArea textArea = new JTextArea();
         textArea.setEditable(false);
-        textArea.setText("000000");
+        textArea.setText(Integer.toString(mapa.normal.getScore()));
         textArea.setForeground(Color.YELLOW);
         textArea.setBackground(Color.DARK_GRAY);
-        textArea.setBounds(100, 15, 48, 22);
+        textArea.setBounds(150, 15, 48, 22);
         localScore.add(textArea);
-
-        final JSpinner spinner = new JSpinner();
-        spinner.setModel(new SpinnerNumberModel(1, 1, 10, 1));
-        spinner.setBounds(330, 21, 35, 20);
-        spinner.setValue(5);
-        localBotoes.add(spinner);
-
-        JTextArea txtSpeed = new JTextArea();
-        txtSpeed.setEditable(false);
-        txtSpeed.setBackground(Color.DARK_GRAY);
-        txtSpeed.setForeground(Color.WHITE);
-        txtSpeed.setText("Speed");
-        txtSpeed.setBounds(280, 22, 55, 20);
-        localBotoes.add(txtSpeed);
-        mapa.setLayout(null);
 
         janelaJogo.getContentPane().setLayout(contJanela);
         janelaJogo.setTitle("Snake's adventures");
@@ -120,7 +105,7 @@ public class Tela {
                 mapa.getSnake().setScore(0);
                 mapa.setSnake(new Snake(mapa.getPontosMatriz()));
                 janelaJogo.repaint();
-
+                textArea.setText(Integer.toString(mapa.normal.getScore()));
             }
         });
 
@@ -135,6 +120,7 @@ public class Tela {
                 mapa.getSnake().setScore(0);
                 mapa.setKitty(new Kitty(mapa.getPontosMatriz()));
                 janelaJogo.repaint();
+                textArea.setText(Integer.toString(mapa.normal.getScore()));
             }
         });
 
@@ -149,6 +135,7 @@ public class Tela {
                 mapa.getSnake().setScore(0);
                 mapa.setStar(new Star(mapa.getPontosMatriz()));
                 janelaJogo.repaint();
+                textArea.setText(Integer.toString(mapa.normal.getScore()));
             }
         });
 
@@ -163,14 +150,12 @@ public class Tela {
                 if("START".equals(start.getText())) {
                     mapa.requestFocus();
                     start.setText("PAUSE");
-                    spinner.setEnabled(false);
                     menuCobras.setEnabled(false);
                     mapa.setEnabled(true);
                     mapa.setJogando(true);
                 } else if("PAUSE".equals(start.getText())) {
                     start.setText("START");
                     mapa.setEnabled(false);
-                    spinner.setEnabled(true);
                     menuCobras.setEnabled(true);
                     mapa.setJogando(false);
                 }
