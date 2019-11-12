@@ -1,6 +1,6 @@
 # Snake da Luís
 
-Descrição do Projeto
+# Descrição do Projeto
 
 Tem as seguintes funionalidades:
 
@@ -13,8 +13,40 @@ Tem as seguintes funionalidades:
 - Implementado as frutas **Simples**, **Bomb**, **Big** e **Decrease**
 - Implementado aparecer uma fruta por vez em posição aleatória
 - Implementado pontuação relativa à velocidade da cobra
-- Implementado a opção de pausar
 - Implementado Thread no Game Loop
+
+# Ambiente Usado
+
+
+
+# Como executar
+    
+1) Abra o NetBeans e crie um projeto Java Aplication.
+2) Crie um pacote chamado "visual".
+3) No pacote, crie uma classe pra cada arquivo com o seu respectivo nome, copie e cole com o conteúdo dos arquivos do repositório.
+4) Execute o projeto. Selecione a main como sendo a classe Main.java, se necessário.
+
+# Como jogar
+
+## Antes de iniciar
+    No canto superior esquerdo da tela, tem um botão que permite escolher o tipo da cobra que você deseja usar
+    
+    No centro inferior da tela, tem um spinner que define a velocidade do jogo. Quando mais rápido, maior pontuação por fruta.
+
+## Iniciar jogo
+    Após escolher sua cobra, clique no botão "JOGAR" no canto inferior esquerdo
+    
+## Durante o jogo
+    
+*Movimento* : As setas mudam a direção da snake
+
+*Frutas*
+- Azul = fruta Simples
+- Verde = fruta Big
+- Vermelha = fruta Bomb
+- Roxa = fruta Decrease
+- 
+*Barreiras* : A cobra morre se esbarrar em algum obstáculo (marrom) ou se colidir com o próprio corpo
 
 # EP2 - OO 2019.2 (UnB - Gama)
 
