@@ -33,9 +33,9 @@ public class Map extends JPanel implements ActionListener {
     private Big macaGrande;
     private Bomb macaBomba;
     private Decrease macaDiminui;
-    public Snake normal;
-    public Kitty scape;
-    public Star dobro;
+    private Snake normal;
+    private Kitty scape;
+    private Star dobro;
 
     private int posXMaca;
     private int posYMaca;
@@ -119,7 +119,7 @@ public class Map extends JPanel implements ActionListener {
         }
     }
 
-    public void doDrawing(Graphics g){
+    private void doDrawing(Graphics g){
         if(contadorFrutas%10 == 0 && contadorFrutas!=0) {
             g.setColor(Big.getCor2());
             posXMacaG = (int) macaGrande.getPosX();
@@ -175,15 +175,21 @@ public class Map extends JPanel implements ActionListener {
         Toolkit.getDefaultToolkit().sync();
     }
 
-    public void doGameOver(Graphics g){
+    private void doGameOver(Graphics g){
         System.out.println(normal.getScore());
         String msg = "Game Over";
+        Integer scorei = normal.getScore();
+        String score = ("Your Score: "+Integer.toString(scorei));
         Font big = new Font("Helvetica", Font.BOLD, 25);
+        Font small = new Font("Helvetica", Font.BOLD, 15);
         FontMetrics metr = getFontMetrics(big);
+        FontMetrics metr2 = getFontMetrics(small);
 
         g.setColor(Color.white);
         g.setFont(big);
         g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2);
+        g.setFont(small);
+        g.drawString(score,((B_WIDTH - metr2.stringWidth(score)) / 2),B_HEIGHT / 2+ 40);
     }
 
     @Override
@@ -199,7 +205,7 @@ public class Map extends JPanel implements ActionListener {
         repaint();
     }
 
-    public void comeuFruta(){
+    private void comeuFruta(){
         if(normal.posicaoCorpo[0].x == posXMaca && normal.posicaoCorpo[0].y == posYMaca){
             if(!trueStar) {
                 normal.crescerCobra(1);
@@ -217,7 +223,7 @@ public class Map extends JPanel implements ActionListener {
         }
     }
 
-    public void comeuFrutaBig(){
+    private void comeuFrutaBig(){
         if(normal.posicaoCorpo[0].x == posXMacaG && normal.posicaoCorpo[0].y == posYMacaG){
             if(!trueStar) {
                 normal.crescerCobraBig(1);
@@ -235,7 +241,7 @@ public class Map extends JPanel implements ActionListener {
         }
     }
 
-    public void comeuFrutaDecrease(){
+    private void comeuFrutaDecrease(){
         if(normal.posicaoCorpo[0].x == posXMacaD && normal.posicaoCorpo[0].y == posYMacaD){
             normal.setTamanhoDaCobra(macaDiminui.diminuir());
             macaDiminui.gerarFruta();
@@ -248,7 +254,7 @@ public class Map extends JPanel implements ActionListener {
         }
     }
 
-    public void colisao(){
+    private void colisao(){
         if(normal.verColisao()){
             jogando = false;
             morto = true;
