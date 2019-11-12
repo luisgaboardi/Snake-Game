@@ -25,16 +25,26 @@ public class Map extends JPanel implements ActionListener {
     Timer timer;
 
     private Obstaculo problema;
+    private Obstaculo problema2;
+    private Obstaculo problema3;
+    private Obstaculo problema4;
+    private Obstaculo problema5;
     private Fruta maca;
     private Big macaGrande;
-    private Snake normal;
-    private Kitty scape;
-    private Star dobro;
+    private Bomb macaBomba;
+    private Decrease macaDiminui;
+    public Snake normal;
+    public Kitty scape;
+    public Star dobro;
 
     private int posXMaca;
     private int posYMaca;
     private int posXMacaG;
     private int posYMacaG;
+    private int posXMacaB;
+    private int posYMacaB;
+    private int posXMacaD;
+    private int posYMacaD;
     private int contadorFrutas = 0;
     private final int x[] = new int[PontosMatriz];
     private final int y[] = new int[PontosMatriz];
@@ -75,7 +85,13 @@ public class Map extends JPanel implements ActionListener {
                 }
             }
             problema = new Obstaculo();
+            problema2 = new Obstaculo();
+            problema3 = new Obstaculo();
+            problema4 = new Obstaculo();
+            problema5 = new Obstaculo();
+            macaBomba = new Bomb();
             macaGrande = new Big();
+            macaDiminui = new Decrease();
             maca = new Fruta();
             timer = new Timer(DELAY,this);
             timer.start();
@@ -110,10 +126,40 @@ public class Map extends JPanel implements ActionListener {
             posYMacaG = (int) macaGrande.getPosY();
             g.fillRect(posXMacaG, posYMacaG, escala, escala);
         }
+        if(contadorFrutas%2 == 0 && contadorFrutas!=0) {
+            g.setColor(Big.getCor3());
+            posXMacaB = (int) macaBomba.getPosX();
+            posYMacaB = (int) macaBomba.getPosY();
+            g.fillRect(posXMacaB, posYMacaB, escala, escala);
+        }
+
+        if(contadorFrutas%3 == 0 && contadorFrutas!=0) {
+            g.setColor(Big.getCor4());
+            posXMacaD = (int) macaDiminui.getPosX();
+            posYMacaD = (int) macaDiminui.getPosY();
+            g.fillRect(posXMacaD, posYMacaD, escala, escala);
+        }
+
         g.setColor(Obstaculo.getCor());
         int posXObstaculo = (int) problema.getPosX();
         int posYObstaculo = (int) problema.getPosY();
         g.fillRect(posXObstaculo,posYObstaculo,escala,escala);
+
+        int posXObstaculo2 = (int) problema2.getPosX();
+        int posYObstaculo2 = (int) problema2.getPosY();
+        g.fillRect(posXObstaculo2,posYObstaculo2,escala,escala);
+
+        int posXObstaculo3 = (int) problema3.getPosX();
+        int posYObstaculo3 = (int) problema3.getPosY();
+        g.fillRect(posXObstaculo3,posYObstaculo3,escala,escala);
+
+        int posXObstaculo4 = (int) problema4.getPosX();
+        int posYObstaculo4 = (int) problema4.getPosY();
+        g.fillRect(posXObstaculo4,posYObstaculo4,escala,escala);
+
+        int posXObstaculo5 = (int) problema5.getPosX();
+        int posYObstaculo5 = (int) problema5.getPosY();
+        g.fillRect(posXObstaculo5,posYObstaculo5,escala,escala);
 
         g.setColor(Fruta.getCor1());
         posXMaca = (int) maca.getPosX();
@@ -144,6 +190,7 @@ public class Map extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (jogando) {
+            comeuFrutaDecrease();
             comeuFrutaBig();
             comeuFruta();
             colisao();
@@ -154,19 +201,49 @@ public class Map extends JPanel implements ActionListener {
 
     public void comeuFruta(){
         if(normal.posicaoCorpo[0].x == posXMaca && normal.posicaoCorpo[0].y == posYMaca){
-            normal.crescerCobra();
+            if(!trueStar) {
+                normal.crescerCobra(1);
+            }
+            else{
+                normal.crescerCobra(2);
+            }
             maca.gerarFruta();
             problema.gerarObstaculo();
+            problema2.gerarObstaculo();
+            problema3.gerarObstaculo();
+            problema4.gerarObstaculo();
+            problema5.gerarObstaculo();
             contadorFrutas++;
         }
     }
 
     public void comeuFrutaBig(){
         if(normal.posicaoCorpo[0].x == posXMacaG && normal.posicaoCorpo[0].y == posYMacaG){
-            normal.setScore(normal.getScore()+10);
-            normal.crescerCobra();
+            if(!trueStar) {
+                normal.crescerCobraBig(1);
+            }
+            else{
+                normal.crescerCobraBig(2);
+            }
             macaGrande.gerarFruta();
             problema.gerarObstaculo();
+            problema2.gerarObstaculo();
+            problema3.gerarObstaculo();
+            problema4.gerarObstaculo();
+            problema5.gerarObstaculo();
+            contadorFrutas++;
+        }
+    }
+
+    public void comeuFrutaDecrease(){
+        if(normal.posicaoCorpo[0].x == posXMacaD && normal.posicaoCorpo[0].y == posYMacaD){
+            normal.setTamanhoDaCobra(macaDiminui.diminuir());
+            macaDiminui.gerarFruta();
+            problema.gerarObstaculo();
+            problema2.gerarObstaculo();
+            problema3.gerarObstaculo();
+            problema4.gerarObstaculo();
+            problema5.gerarObstaculo();
             contadorFrutas++;
         }
     }
@@ -180,9 +257,39 @@ public class Map extends JPanel implements ActionListener {
             jogando = false;
             morto = true;
         }
+
+        if(normal.getPosicaoCorpo()[0].x == problema2.getPosX() && normal.getPosicaoCorpo()[0].y == problema2.getPosY() && !trueKitty){
+            jogando = false;
+            morto = true;
+        }
+
+        if(normal.getPosicaoCorpo()[0].x == problema3.getPosX() && normal.getPosicaoCorpo()[0].y == problema3.getPosY() && !trueKitty){
+            jogando = false;
+            morto = true;
+        }
+
+        if(normal.getPosicaoCorpo()[0].x == problema4.getPosX() && normal.getPosicaoCorpo()[0].y == problema4.getPosY() && !trueKitty){
+            jogando = false;
+            morto = true;
+        }
+
+        if(normal.getPosicaoCorpo()[0].x == problema5.getPosX() && normal.getPosicaoCorpo()[0].y == problema5.getPosY() && !trueKitty){
+            jogando = false;
+            morto = true;
+        }
+
+        if(normal.getPosicaoCorpo()[0].x == macaBomba.getPosX() && normal.getPosicaoCorpo()[0].y == macaBomba.getPosY()){
+            jogando = false;
+            morto = true;
+        }
+
         if(!jogando){
             timer.stop();
         }
+    }
+
+    public boolean getJogando() {
+        return jogando;
     }
 
     private class TAdapter extends KeyAdapter{
