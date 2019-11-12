@@ -45,7 +45,7 @@ Tem as seguintes funionalidades:
 - Verde = fruta Big
 - Vermelha = fruta Bomb
 - Roxa = fruta Decrease
-- 
+
 *Barreiras* : A cobra morre se esbarrar em algum obstáculo (marrom) ou se colidir com o próprio corpo
 
 # EP2 - OO 2019.2 (UnB - Gama)
