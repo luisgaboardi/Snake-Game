@@ -70,7 +70,7 @@ public class Snake{
         return houveColisao;
     }
 
-    public void crescerCobra(){
+    public void crescerCobra(int pont){
         tamanhoDaCobra++;
         if(andandoDireita){
             posicaoCorpo[tamanhoDaCobra-1] = (new Point(posicaoCorpo[tamanhoDaCobra-2].x-10,posicaoCorpo[tamanhoDaCobra-2].y));
@@ -84,7 +84,24 @@ public class Snake{
         if(andandoBaixo){
             posicaoCorpo[tamanhoDaCobra-1] = (new Point(posicaoCorpo[tamanhoDaCobra-2].x,posicaoCorpo[tamanhoDaCobra-2].y+10));
         }
-        score+=10;
+        score+=(10*pont);
+    }
+
+    public void crescerCobraBig(int pont){
+        tamanhoDaCobra++;
+        if(andandoDireita){
+            posicaoCorpo[tamanhoDaCobra-1] = (new Point(posicaoCorpo[tamanhoDaCobra-2].x-10,posicaoCorpo[tamanhoDaCobra-2].y));
+        }
+        if(andandoEsquerda){
+            posicaoCorpo[tamanhoDaCobra-1] = (new Point(posicaoCorpo[tamanhoDaCobra-2].x+10,posicaoCorpo[tamanhoDaCobra-2].y));
+        }
+        if(andandoCima){
+            posicaoCorpo[tamanhoDaCobra-1] = (new Point(posicaoCorpo[tamanhoDaCobra-2].x,posicaoCorpo[tamanhoDaCobra-2].y-10));
+        }
+        if(andandoBaixo){
+            posicaoCorpo[tamanhoDaCobra-1] = (new Point(posicaoCorpo[tamanhoDaCobra-2].x,posicaoCorpo[tamanhoDaCobra-2].y+10));
+        }
+        score+=(20*pont);
     }
 
     public int getTamanhoDaCobra() {
