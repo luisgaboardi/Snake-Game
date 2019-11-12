@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args){
         EventQueue.invokeLater(()->{
             try{
+                Score pontuacao = new Score();
                 Tela principal = new Tela();
                 principal.getJanelaJogo().setLocationRelativeTo(null);
                 principal.getJanelaJogo().setVisible(true);
