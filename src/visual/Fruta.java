@@ -2,7 +2,7 @@ package visual;
 
 import java.awt.*;
 
-public class Fruta {
+public class Fruta implements Runnable{
     protected int posX;
     protected int posY;
     protected int escala = 10;
@@ -23,6 +23,11 @@ public class Fruta {
 
         r = (int) (Math.random() * 28);
         posY = r*escala;
+    }
+
+    @Override
+    public void run() {
+      Fruta normal = new Fruta();
     }
 
     public int getPosX() {
