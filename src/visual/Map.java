@@ -36,6 +36,8 @@ public class Map extends JPanel implements ActionListener {
     private Snake normal;
     private Kitty scape;
     private Star dobro;
+    private boolean trueBig = false;
+    private boolean trueDecrease = false;
 
     private int posXMaca;
     private int posYMaca;
@@ -120,24 +122,27 @@ public class Map extends JPanel implements ActionListener {
     }
 
     private void doDrawing(Graphics g){
-        if(contadorFrutas%10 == 0 && contadorFrutas!=0) {
+        if(contadorFrutas%7 == 0 && contadorFrutas!=0) {
             g.setColor(Big.getCor2());
             posXMacaG = (int) macaGrande.getPosX();
             posYMacaG = (int) macaGrande.getPosY();
             g.fillRect(posXMacaG, posYMacaG, escala, escala);
-        }
-        if(contadorFrutas%2 == 0 && contadorFrutas!=0) {
-            g.setColor(Big.getCor3());
-            posXMacaB = (int) macaBomba.getPosX();
-            posYMacaB = (int) macaBomba.getPosY();
-            g.fillRect(posXMacaB, posYMacaB, escala, escala);
+            trueBig = true;
         }
 
-        if(contadorFrutas%3 == 0 && contadorFrutas!=0) {
+        if(contadorFrutas%9 == 0 && contadorFrutas!=0 && trueBig == false) {
             g.setColor(Big.getCor4());
             posXMacaD = (int) macaDiminui.getPosX();
             posYMacaD = (int) macaDiminui.getPosY();
             g.fillRect(posXMacaD, posYMacaD, escala, escala);
+            trueDecrease = true;
+        }
+
+        if(contadorFrutas%2 == 0 && contadorFrutas!=0 && trueBig == false && trueDecrease == false) {
+            g.setColor(Big.getCor3());
+            posXMacaB = (int) macaBomba.getPosX();
+            posYMacaB = (int) macaBomba.getPosY();
+            g.fillRect(posXMacaB, posYMacaB, escala, escala);
         }
 
         g.setColor(Obstaculo.getCor());
@@ -172,6 +177,8 @@ public class Map extends JPanel implements ActionListener {
             int posY = (int) normal.getPosicaoCorpo()[z].getY();
             g.fillRect(posX, posY, escala, escala);
         }
+        trueDecrease = false;
+        trueBig = false;
         Toolkit.getDefaultToolkit().sync();
     }
 
