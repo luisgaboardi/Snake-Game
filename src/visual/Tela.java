@@ -75,7 +75,8 @@ public class Tela {
 
         JTextArea textArea = new JTextArea();
         textArea.setEditable(false);
-        textArea.setText(Integer.toString(mapa.normal.getScore()));
+        textArea.setText("0");
+        //textArea.setText(Integer.toString(mapa.normal.getScore()));
         textArea.setForeground(Color.YELLOW);
         textArea.setBackground(Color.DARK_GRAY);
         textArea.setBounds(150, 15, 48, 22);
@@ -105,7 +106,6 @@ public class Tela {
                 mapa.getSnake().setScore(0);
                 mapa.setSnake(new Snake(mapa.getPontosMatriz()));
                 janelaJogo.repaint();
-                textArea.setText(Integer.toString(mapa.normal.getScore()));
             }
         });
 
@@ -120,7 +120,6 @@ public class Tela {
                 mapa.getSnake().setScore(0);
                 mapa.setKitty(new Kitty(mapa.getPontosMatriz()));
                 janelaJogo.repaint();
-                textArea.setText(Integer.toString(mapa.normal.getScore()));
             }
         });
 
@@ -135,7 +134,6 @@ public class Tela {
                 mapa.getSnake().setScore(0);
                 mapa.setStar(new Star(mapa.getPontosMatriz()));
                 janelaJogo.repaint();
-                textArea.setText(Integer.toString(mapa.normal.getScore()));
             }
         });
 
