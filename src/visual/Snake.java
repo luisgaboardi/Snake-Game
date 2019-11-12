@@ -84,7 +84,7 @@ public class Snake{
         if(andandoBaixo){
             posicaoCorpo[tamanhoDaCobra-1] = (new Point(posicaoCorpo[tamanhoDaCobra-2].x,posicaoCorpo[tamanhoDaCobra-2].y+10));
         }
-        score+=(10*pont);
+        score+=(1*pont);
     }
 
     public void crescerCobraBig(int pont){
@@ -101,7 +101,7 @@ public class Snake{
         if(andandoBaixo){
             posicaoCorpo[tamanhoDaCobra-1] = (new Point(posicaoCorpo[tamanhoDaCobra-2].x,posicaoCorpo[tamanhoDaCobra-2].y+10));
         }
-        score+=(20*pont);
+        score+=(2*pont);
     }
 
     public int getTamanhoDaCobra() {
