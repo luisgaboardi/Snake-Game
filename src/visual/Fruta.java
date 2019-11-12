@@ -8,7 +8,6 @@ public class Fruta {
     protected int escala = 10;
 
     private static Color cor1;
-
     private static Color cor2;
     private static Color cor3;
     private static Color cor4;
