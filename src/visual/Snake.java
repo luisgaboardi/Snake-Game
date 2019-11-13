@@ -61,12 +61,18 @@ public class Snake {
         }
     }
 
-    protected boolean checkCollision() {
+    protected boolean checkCollision(Barriers barrier) {
 
         boolean morto = false;
 
         for (int z = getBodySize() - 1; z > 0; --z) {
-            if ((getBodyPos()[0].x == getBodyPos()[z].x) && (getBodyPos()[0].y == getBodyPos()[z].y)) {
+            if (getBodyPos()[0].equals(getBodyPos()[z])) {
+                morto = true;
+            }
+        }
+        
+        for (Point p : barrier.pos) {
+            if (getBodyPos()[0].equals(p)) {
                 morto = true;
             }
         }

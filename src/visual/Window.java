@@ -233,7 +233,9 @@ public class Window extends JFrame {
 
                 } else if ("RESET".equals(btnPlay.getText())) {
 
-                    grid.snake.dead = true;
+                    int sameSpeed = (int) speedValue.getValue();
+                    speedValue.setValue(sameSpeed);
+                    new Window().speedValue.setValue(sameSpeed);
 
                 }
             }
@@ -327,7 +329,7 @@ public class Window extends JFrame {
             System.out.println("");
             while (inGame && !snake.dead) {
 
-                snake.dead = snake.checkCollision();
+                snake.dead = snake.checkCollision(barrier);
                 if (fruit.checkAppleEaten(snake)) {
                     score.setText(Integer.toString(snake.getScore()));
                 }
@@ -390,11 +392,6 @@ public class Window extends JFrame {
 
             } else {
                 gameOver(g);
-                Window.this.dispose();
-                int sameSpeed = (int) speedValue.getValue();
-                speedValue.setValue(sameSpeed);
-                new Window().speedValue.setValue(sameSpeed);
-
             }
         }
 

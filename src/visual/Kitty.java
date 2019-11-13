@@ -1,6 +1,7 @@
 package visual;
 
 import java.awt.Color;
+import java.awt.Point;
 
 public class Kitty extends Snake {
 
@@ -13,7 +14,7 @@ public class Kitty extends Snake {
     }
 
     @Override
-    public boolean checkCollision() {
+    public boolean checkCollision(Barriers barrier) {
 
         boolean morto = false;
 
