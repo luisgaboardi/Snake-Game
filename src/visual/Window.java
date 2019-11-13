@@ -225,7 +225,6 @@ public class Window extends JFrame {
                     menuSnake.setEnabled(false);
 
                     grid.gameLoop.start();
-                    //grid.fruitTimer.start();
                     grid.setEnabled(true);
 
                     grid.inGame = true;
@@ -256,7 +255,6 @@ public class Window extends JFrame {
         private boolean inGame = false;
 
         private Thread gameLoop;
-        //private Thread fruitTimer;
         private Snake snake;
         private Fruit fruit;
         private Fruit fruit2;
@@ -283,7 +281,7 @@ public class Window extends JFrame {
 
             snake = new Snake(nPoints);
 
-            fruit = selectRandomFruit();
+            fruit = new Fruit();
             fruit.newPos(grid, snake);
             
             fruit2 = selectRandomFruit();
@@ -362,7 +360,6 @@ public class Window extends JFrame {
                     g.fillRect(posX + 2, posY + 2, scale, scale);
                 }
                 if (!fruit.onScreen || !fruit2.onScreen) {
-                    fruit = grid.selectRandomFruit();
                     fruit.newPos(grid, snake);
                     fruit2 = grid.selectRandomFruit();
                     fruit2.newPos(grid, snake);
