@@ -11,17 +11,23 @@ Tem as seguintes funionalidades:
 - Implementado movimento da cobra
 - Implementado cobras atravessarem as bordas e aparecerem no lado oposto (Com exceção da Kitty)
 - Implementado as frutas **Simples**, **Bomb**, **Big** e **Decrease**
-- Implementado aparecer uma fruta por vez em posição aleatória
+- Implementado aparecer duas frutas por vez em posição aleatória
 - Implementado pontuação relativa à velocidade da cobra
 - Implementado Thread no Game Loop
 
 # Ambiente Usado
 
+Ubuntu 16.04 LTS
 
+openjdk version "1.8.0_222"
+OpenJDK Runtime Environment (build 1.8.0_222-8u222-b10-1ubuntu1~16.04.1-b10)
+OpenJDK Server VM (build 25.222-b10, mixed mode)
 
 # Como executar
+
+No gitlab, pasta .bin, faça o download do arquivo .jar e execute-o no terminal
     
-1) Abra o NetBeans e crie um projeto Java Aplication.
+1) Abra o *NetBeans*/Eclipse e crie um projeto Java Aplication.
 2) Crie um pacote chamado "visual".
 3) No pacote, crie uma classe pra cada arquivo com o seu respectivo nome, copie e cole com o conteúdo dos arquivos do repositório.
 4) Execute o projeto. Selecione a main como sendo a classe Main.java, se necessário.
