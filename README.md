@@ -14,6 +14,7 @@ Tem as seguintes funionalidades:
 - Implementado aparecer duas frutas por vez em posição aleatória
 - Implementado pontuação relativa à velocidade da cobra
 - Implementado Thread no Game Loop
+- Implementados os obstáculos
 
 # Ambiente Usado
 
