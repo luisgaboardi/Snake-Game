@@ -26,12 +26,15 @@ OpenJDK Server VM (build 25.222-b10, mixed mode)
 
 # Como executar
 
-No gitlab, pasta .bin, faça o download do arquivo .jar e execute-o no terminal
+No gitlab, pasta .bin, faça o download do arquivo .jar e execute-o no terminal com o comando:
+
+`java -jar Snake.jar`
+
+**OU**
     
 1) Abra o *NetBeans*/Eclipse e crie um projeto Java Aplication.
-2) Crie um pacote chamado "visual".
-3) No pacote, crie uma classe pra cada arquivo com o seu respectivo nome, copie e cole com o conteúdo dos arquivos do repositório.
-4) Execute o projeto. Selecione a main como sendo a classe Main.java, se necessário.
+2) Na pasta 'src', copie e cole o pacote 'visual' deste repositório; ou crie o pacote e copie cada arquivo individualmente.
+3) Execute o projeto. Selecione a main como sendo a classe Main.java, se necessário.
 
 # Como jogar
 
