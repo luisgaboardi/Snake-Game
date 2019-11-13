@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -232,7 +233,7 @@ public class Window extends JFrame {
 
                 } else if ("RESET".equals(btnPlay.getText())) {
 
-                    btnPlay.setText("PLAY");
+                    grid.snake.dead = true;
 
                 }
             }
@@ -258,7 +259,7 @@ public class Window extends JFrame {
         private Snake snake;
         private Fruit fruit;
         private Fruit fruit2;
-        //private Barriers barrier;
+        private Barriers barrier;
 
         public Snake getSnake() {
             return snake;
@@ -281,22 +282,26 @@ public class Window extends JFrame {
 
             snake = new Snake(nPoints);
 
-            fruit = new Fruit();
-            fruit.newPos(grid, snake);
-            
-            fruit2 = selectRandomFruit();
-            fruit2.newPos(grid, snake);
-            
-            //fruitTimer = new Thread(new FruitTimer());
+            barrier = new Barriers();
 
-            //barrier = new Barriers();
+            boolean posAvailable;
+
+            fruit = new Fruit();
+            do {
+                posAvailable = fruit.newPos(grid, snake, barrier);
+            } while (!posAvailable);
+
+            fruit2 = selectRandomFruit();
+            do {
+                posAvailable = fruit2.newPos(grid, snake, barrier);
+            } while (!posAvailable);
 
             gameLoop = new Thread(this);
 
         }
 
         protected Fruit selectRandomFruit() {
-            
+
             Fruit fruitX = new Fruit();
 
             Random r = new Random();
@@ -349,7 +354,7 @@ public class Window extends JFrame {
                 gameStart(g);
             }
 
-            //barrier.paintComponent(g);
+            barrier.paintComponent(g);
 
             if (!snake.dead) {
 
@@ -360,14 +365,24 @@ public class Window extends JFrame {
                     g.fillRect(posX + 2, posY + 2, scale, scale);
                 }
                 if (!fruit.onScreen || !fruit2.onScreen) {
-                    fruit.newPos(grid, snake);
-                    fruit2 = grid.selectRandomFruit();
-                    fruit2.newPos(grid, snake);
+                    
+                    boolean posAvailable;
+
+                    do {
+                        posAvailable = fruit.newPos(grid, snake, barrier);
+                    } while (!posAvailable);
+
+                    fruit2 = selectRandomFruit();
+                    
+                    do {
+                        posAvailable = fruit2.newPos(grid, snake, barrier);
+                    } while (!posAvailable);
+
                 }
-                
+
                 g.setColor(fruit.getColor());
                 g.fillRect(fruit.getPos().x + 2, fruit.getPos().y + 2, scale, scale);
-                
+
                 g.setColor(fruit2.getColor());
                 g.fillRect(fruit2.getPos().x + 2, fruit2.getPos().y + 2, scale, scale);
 
@@ -379,7 +394,6 @@ public class Window extends JFrame {
                 int sameSpeed = (int) speedValue.getValue();
                 speedValue.setValue(sameSpeed);
                 new Window().speedValue.setValue(sameSpeed);
-
 
             }
         }
@@ -478,7 +492,6 @@ public class Window extends JFrame {
 //            }
 //
 //        }
-
         @Override
         public void keyReleased(KeyEvent e) {
         }

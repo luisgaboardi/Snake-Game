@@ -13,19 +13,26 @@ public class Fruit extends JPanel {
     private Color color = new Color(0, 45, 255);
     protected boolean onScreen = false;
 
-    protected void newPos(Grid grid, Snake snake) {
+    protected boolean newPos(Grid grid, Snake snake, Barriers barrier) {
         int posX = getRandomNumberInRange(0, 36);
         int posY = getRandomNumberInRange(0, 28);
         Point newPos = new Point(posX, posY);
 
         for (int z = snake.getBodySize() - 1; z >= 0; z--) {
             if (newPos.equals(snake.getBodyPos()[z])) {
-                newPos(grid, snake);
-                return;
+                return false;
             }
         }
+        
+        for(Point p : barrier.pos) {
+            if(newPos.equals(p)) {
+                return false; 
+            }
+        }
+        
         onScreen = true;
         setPos(newPos);
+        return onScreen;
     }
 
     protected boolean checkAppleEaten(Snake snake) {
