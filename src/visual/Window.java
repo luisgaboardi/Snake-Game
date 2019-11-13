@@ -215,27 +215,25 @@ public class Window extends JFrame {
         areaBotoes.add(btnPlay);
         btnPlay.addMouseListener(new MouseAdapter() {
             @Override
+            @SuppressWarnings("empty-statement")
             public void mouseClicked(MouseEvent arg0) {
                 if ("PLAY".equals(btnPlay.getText())) {
 
-                    btnPlay.setText("PAUSE");
+                    btnPlay.setText("RESET");
 
                     speedValue.setEnabled(false);
                     menuSnake.setEnabled(false);
 
                     grid.gameLoop.start();
-                    grid.fruitTimer.start();
+                    //grid.fruitTimer.start();
                     grid.setEnabled(true);
 
                     grid.inGame = true;
                     repaint();
 
-                } else if ("STOP".equals(btnPlay.getText())) {
+                } else if ("RESET".equals(btnPlay.getText())) {
 
                     btnPlay.setText("PLAY");
-
-                    grid.inGame = false;
-                    grid.setEnabled(false);
 
                 }
             }
@@ -258,10 +256,11 @@ public class Window extends JFrame {
         private boolean inGame = false;
 
         private Thread gameLoop;
-        private Thread fruitTimer;
+        //private Thread fruitTimer;
         private Snake snake;
         private Fruit fruit;
-        private Barriers barrier;
+        private Fruit fruit2;
+        //private Barriers barrier;
 
         public Snake getSnake() {
             return snake;
@@ -286,40 +285,50 @@ public class Window extends JFrame {
 
             fruit = selectRandomFruit();
             fruit.newPos(grid, snake);
-            fruitTimer = new Thread(new FruitTimer());
+            
+            fruit2 = selectRandomFruit();
+            fruit2.newPos(grid, snake);
+            
+            //fruitTimer = new Thread(new FruitTimer());
 
-            barrier = new Barriers();
+            //barrier = new Barriers();
 
             gameLoop = new Thread(this);
 
         }
 
         protected Fruit selectRandomFruit() {
+            
+            Fruit fruitX = new Fruit();
 
             Random r = new Random();
             int randomFruit = r.nextInt(101);
 
             if (randomFruit >= 10 && randomFruit < 60) {
-                fruit = new Fruit();
-                fruit.setScoreValue(snake.getSpeed());
+                fruitX = new Fruit();
+                fruitX.setScoreValue(snake.getSpeed());
             } else if (randomFruit >= 60 && randomFruit < 80) {
-                fruit = new Bomb();
+                fruitX = new Bomb();
             } else if (randomFruit >= 80) {
-                fruit = new Big();
-                fruit.setScoreValue(2 * snake.getSpeed());
+                fruitX = new Big();
+                fruitX.setScoreValue(2 * snake.getSpeed());
             } else if (randomFruit < 10) {
-                fruit = new Decrease();
+                fruitX = new Decrease();
             }
 
-            return fruit;
+            return fruitX;
         }
 
         @Override
         public void run() {
             System.out.println("");
             while (inGame && !snake.dead) {
+
                 snake.dead = snake.checkCollision();
                 if (fruit.checkAppleEaten(snake)) {
+                    score.setText(Integer.toString(snake.getScore()));
+                }
+                if (fruit2.checkAppleEaten(snake)) {
                     score.setText(Integer.toString(snake.getScore()));
                 }
                 snake.move();
@@ -342,7 +351,7 @@ public class Window extends JFrame {
                 gameStart(g);
             }
 
-            barrier.paintComponent(g);
+            //barrier.paintComponent(g);
 
             if (!snake.dead) {
 
@@ -352,21 +361,29 @@ public class Window extends JFrame {
                     int posY = (int) snake.getBodyPos()[z].getY();
                     g.fillRect(posX + 2, posY + 2, scale, scale);
                 }
-                if(!fruit.onScreen) {
-                    fruit = grid.selectRandomFruit();          
+                if (!fruit.onScreen || !fruit2.onScreen) {
+                    fruit = grid.selectRandomFruit();
                     fruit.newPos(grid, snake);
+                    fruit2 = grid.selectRandomFruit();
+                    fruit2.newPos(grid, snake);
                 }
+                
                 g.setColor(fruit.getColor());
                 g.fillRect(fruit.getPos().x + 2, fruit.getPos().y + 2, scale, scale);
+                
+                g.setColor(fruit2.getColor());
+                g.fillRect(fruit2.getPos().x + 2, fruit2.getPos().y + 2, scale, scale);
 
                 Toolkit.getDefaultToolkit().sync();
 
             } else {
                 gameOver(g);
-//                Window.this.dispose();
-//                int sameSpeed = (int) speedValue.getValue();
-//                speedValue.setValue(sameSpeed);
-//                new Window().speedValue.setValue(sameSpeed);
+                Window.this.dispose();
+                int sameSpeed = (int) speedValue.getValue();
+                speedValue.setValue(sameSpeed);
+                new Window().speedValue.setValue(sameSpeed);
+
+
             }
         }
 
@@ -389,7 +406,10 @@ public class Window extends JFrame {
             Font small = new Font("Helvetica", Font.BOLD, 14);
             FontMetrics metr = getFontMetrics(small);
 
-            setBackground(Color.BLACK);
+            g.clearRect(0, 0, width + 5, height + 5);
+            g.setColor(Color.black);
+            g.fillRect(0, 0, width + 5, height + 5);
+
             g.setColor(Color.white);
             g.setFont(small);
             g.drawString(msg, (width - metr.stringWidth(msg)) / 2, height / 3);
@@ -424,42 +444,43 @@ public class Window extends JFrame {
             }
         }
 
-        public class FruitTimer extends JPanel implements Runnable {
-
-            private int time;
-
-            @Override
-            public void run() {
-                fruitLoop();
-            }
-
-            public void fruitLoop() {
-                while (inGame && !snake.dead) {
-                    
-                    fruit = grid.selectRandomFruit();
-
-                    if (fruit instanceof Decrease) {
-                        time = 3000;
-                    } else if (fruit instanceof Bomb) {
-                        time = 6000;
-                    } else if (fruit instanceof Big) {
-                        time = 4000;
-                    } else if (fruit instanceof Fruit) {
-                        time = 6000;
-                    }
-                    
-                    fruit.newPos(grid, snake);
-                    grid.repaint(); // Curioso
-
-                    try {
-                        Thread.sleep(time);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(FruitTimer.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-
-        }
+//        public class FruitTimer extends JPanel implements Runnable {
+//
+//            private int time;
+//
+//            @Override
+//            public void run() {
+//                fruitLoop();
+//            }
+//
+//            public void fruitLoop() {
+//                
+//                while (inGame && !snake.dead) {
+//                    
+//                        fruit = grid.selectRandomFruit();
+//
+//                        if (fruit instanceof Decrease) {
+//                            time = 3000;
+//                        } else if (fruit instanceof Bomb) {
+//                            time = 6000;
+//                        } else if (fruit instanceof Big) {
+//                            time = 4000;
+//                        } else if (fruit instanceof Fruit) {
+//                            time = 6000;
+//                        }
+//
+//                        fruit.newPos(grid, snake);
+//                        //grid.repaint(); // Curioso
+//
+//                        try {
+//                            Thread.sleep(time);
+//                        } catch (InterruptedException ex) {
+//                            Logger.getLogger(FruitTimer.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//                }
+//            }
+//
+//        }
 
         @Override
         public void keyReleased(KeyEvent e) {
