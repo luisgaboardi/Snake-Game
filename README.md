@@ -23,12 +23,12 @@ OpenJDK Server VM (build 25.222-b10, mixed mode)
 
 ## Antes de iniciar
 
-    No canto superior esquerdo da tela, tem um botão que permite escolher o tipo da cobra que você deseja usar    
-    No centro inferior da tela, tem um spinner que define a velocidade do jogo. Quando mais rápido, maior pontuação por fruta.
+- No canto superior esquerdo da tela, tem um botão que permite escolher o tipo da cobra que você deseja usar    
+- No centro inferior da tela, tem um spinner que define a velocidade do jogo. Quando mais rápido, maior pontuação por fruta.
 
 ## Iniciar jogo
 
-    Após escolher sua cobra e a velocidade, clique no botão "JOGAR" no canto inferior esquerdo
+- Após escolher sua cobra e a velocidade, clique no botão "JOGAR" no canto inferior esquerdo
 
 ## Tipos de Snakes
 
